@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 @Table(name = "players")
@@ -30,6 +32,9 @@ public class Player {
     @JoinColumn(name = "score_id")
     private Score score;
 
+    private int activeDiceNumber;
+    private List<Dice> dices;
+
     private Player(Builder builder){
         this.id = builder.id;
         this.firstName = builder.firstName;
@@ -38,7 +43,9 @@ public class Player {
         this.score = builder.score;
     }
 
-    public Player() {
+    public Player(int activeDiceNumber) {
+        this.dices = new ArrayList<Dice>();
+        this.activeDiceNumber = activeDiceNumber;
     }
 
     public static class Builder {
@@ -75,4 +82,13 @@ public class Player {
             return new Player(this);
         }
     }
+
+    public void rollDice(){
+        this.dices.clear();
+        Random rand = new Random();
+        for(int i=0; i < activeDiceNumber; i++){
+            this.dices.add(Dice.getFromNumber(rand.nextInt(7)));
+        }
+    }
+
 }
