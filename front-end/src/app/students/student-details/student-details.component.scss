@@ -1,0 +1,55 @@
+@use "src/theme";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  color: theme.$white h1 {
+    color: theme.$common-purple;
+    font-size: xx-large;
+  }
+
+  label {
+    font-size: large;
+    margin: 10px 0;
+  }
+
+  button {
+    margin: 10px 0;
+  }
+
+  .student-courses {
+    .courses-title {
+      font-size: large;
+      margin: 10px 10px 10px 0;
+    }
+
+    table {
+      border: 1px solid lightgray;
+      font-size: medium;
+
+      tr {
+        display: flex;
+
+        td {
+          width: 33%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+
+    .new-course-div {
+      :hover {
+        cursor: pointer;
+
+      }
+
+      .new-course-icon {
+        margin-left: 10px;
+        color: green;
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+<ng-container *ngIf="student$ | async; let student">
+  <h1>Student's personal data</h1>
+  <form (ngSubmit)="save(student)" #studentForm="ngForm">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName"
+             required
+             [(ngModel)]="student.firstName" name="firstName"
+             #firstName="ngModel">
+      <div [hidden]="firstName.valid || firstName.pristine"
+           class="alert alert-danger">
+        First Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName"
+             required
+             [(ngModel)]="student.lastName" name="lastName"
+             #lastName="ngModel">
+      <div [hidden]="lastName.valid || lastName.pristine"
+           class="alert alert-danger">
+        Last Name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="birthDate">Birthdate</label>
+      <input type="date" class="form-control" id="birthDate"
+             required
+             [ngModel]="student.birthdate | date:'yyyy-MM-dd'" name="birthDate"
+             #birthDate="ngModel" (ngModelChange)="updateBirthdate($event, student)">
+      <div [hidden]="birthDate.pristine && birthDate.untouched || birthDate.value !== today.toISOString().slice(0, 10)"
+           class="alert alert-danger">
+        Birthdate is required
+      </div>
+    </div>
+
+    <div *ngIf="allMajors$ | async; let allMajors" class="form-group">
+      <label for="major">Major</label>
+      <select id="major" [(ngModel)]="majorSelectModel" name="majors" class="form-control">
+        <option [ngValue]="null" [disabled]="true">Select a major</option>
+        <option *ngFor="let major of allMajors" [ngValue]="major">{{major.name}}</option>
+      </select>
+    </div>
+
+    <div class="student-courses">
+      <div class="d-flex align-items-center">
+        <h3 class="courses-title">Courses</h3>
+        <button type="button" mat-mini-fab color="primary" (click)="courseClick()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="allCourses$ | async; let allCourses" class="form-group">
+        <label for="courses">Available courses</label>
+        <select id="courses" [(ngModel)]="courseSelectModel" name="courses" class="form-control">
+          <option [ngValue]="null" [disabled]="true">Select a course</option>
+          <option *ngFor="let course of allCourses" [ngValue]="course">{{course.name}}</option>
+        </select>
+        <div *ngIf="notSelectedCourse" class="alert alert-danger">
+          Course is required
+        </div>
+        <button type="button" [disabled]="courseSelectModel==null" (click)="addCourseToStudent(student)"
+                mat-raised-button
+                color="primary">Add course
+        </button>
+      </div>
+      <table class="table">
+        <tbody>
+        <tr *ngFor="let course of student.courses">
+          <td>{{ course?.name }}</td>
+          <td>{{ course?.hours }}</td>
+          <td>
+            <button mat-icon-button color="warn" (click)="removeCourseToStudent(student, course)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary" [disabled]="!studentForm.form.valid">Save</button>
+  </form>
+
+</ng-container>
+
+

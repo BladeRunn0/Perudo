@@ -1,0 +1,42 @@
+@use "src/theme";
+
+nav {
+  height: 80px;
+  background: linear-gradient(to right, theme.$common-purple, theme.$common-red);
+
+  div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-left: 20px;
+      height: 60px;
+      transition: .3s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .active {
+      text-decoration: underline;
+    }
+  }
+}
+
+.mat-nav-list {
+  margin-left: 50px;
+  padding: 0;
+  display: flex;
+}
+
+.mat-list-base .mat-list-item {
+  font-size: large;
+  color: theme.$white;
+  transition: .3s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
