@@ -42,4 +42,40 @@ public enum Dice implements Serializable {
                 return Dice.SIX;
         }
     }
+
+    public static int getStringDiceValue(String face) {
+        switch (face) {
+            case "PACO":
+                return 1;
+            case "DEUX":
+                return 2;
+            case "TROIS":
+                return 3;
+            case "QUATRE":
+                return 4;
+            case "CINQ":
+                return 5;
+            case "SIX":
+                return 6;
+            default:
+                return 0;
+        }
+    }
+
+    public static String getStringHigherFace(String face) {
+        switch (face) {
+            case "PACO":
+                return "DEUX";
+            case "DEUX":
+                return "TROIS";
+            case "TROIS":
+                return "QUATRE";
+            case "QUATRE":
+                return "CINQ";
+            case "CINQ":
+                return "SIX";
+            default:
+                return "SIX";
+        }
+    }
 }
