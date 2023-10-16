@@ -91,4 +91,12 @@ public class Player {
         }
     }
 
+    public void rollDice(int nbDiceToRemove){
+        this.dices.clear();
+        Random rand = new Random();
+        for(int i=0; i < activeDiceNumber-nbDiceToRemove; i++){
+            this.dices.add(Dice.getFromNumber(rand.nextInt(7)));
+        }
+    }
+
 }
