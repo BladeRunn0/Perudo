@@ -41,6 +41,8 @@ public class Player {
         this.lastName = builder.lastName;
         this.scores = builder.scores;
         this.score = builder.score;
+        this.activeDiceNumber = builder.activeDiceNumber;
+        this.dices = builder.dices;
     }
 
     public Player(int activeDiceNumber) {
@@ -54,6 +56,8 @@ public class Player {
         private String lastName;
         private List<Score> scores;
         private Score score;
+        private int activeDiceNumber;
+        private List<Dice> dices;
 
         public Player.Builder id (Long id) {
             this.id = id;
@@ -78,6 +82,15 @@ public class Player {
             this.score = score;
             return this;
         }
+        public Player.Builder activeDiceNumber(int activeDiceNumber){
+            this.activeDiceNumber = activeDiceNumber;
+            return this;
+        }
+        public Player.Builder dices(){
+            this.dices = new ArrayList<Dice>();
+            return this;
+        }
+
         public Player build() {
             return new Player(this);
         }
