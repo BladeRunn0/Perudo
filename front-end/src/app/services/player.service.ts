@@ -10,7 +10,7 @@ export class PlayerService {
   constructor(private http: HttpClient) {
   }
 
-  private playerUrl = "http://localhost:8080/player"
+  private playerUrl = "http://localhost:8080/players"
 
   findAll(): Observable<Player[]> {
     return this.http.get<Player[]>(this.playerUrl)
