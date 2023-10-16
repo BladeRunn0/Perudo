@@ -65,4 +65,20 @@ public class PlayerService {
     public List<Player> searchByScore(int scoreId) {
         return playerDAO.findByScoreId(scoreId);
     }
+
+    private  List<Player> createPlayers(int nbPlayer){
+        List<Player> listPlayer = new ArrayList<>();
+        for(int i=0;  i<nbPlayer;i++){
+            listPlayer.add(new Player(5));
+        }
+        for(int i=0; i<listPlayer.size();i++){
+            listPlayer.get(i).rollDice();
+        }
+        return listPlayer;
+    }
+
+    public List<Player> playGame(){
+        List<Player> listPlayer = createPlayers(5); //nb en dur de joueurs pour tester le front
+        return listPlayer;
+    }
 }
