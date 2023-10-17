@@ -3,6 +3,7 @@ package com.epf.perudoback.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Random;
 @Entity
 @Table(name = "players")
 @Getter
+@NoArgsConstructor
 public class Player {
 
     @Id
@@ -20,18 +22,12 @@ public class Player {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @ManyToMany
-    @JoinTable(
-            name = "player_score",
-            joinColumns = @JoinColumn(name = "player_id"),
-            inverseJoinColumns = @JoinColumn(name = "score_id"))
-    private List<Score> scores;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "score_id")
     private Score score;
 
     @Column(name = "active_dice_number")
-    private int activeDiceNumber;
+    private Integer activeDiceNumber;
     @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
     private List<Dice> dices;
 
@@ -39,7 +35,6 @@ public class Player {
         this.id = builder.id;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
-        this.scores = builder.scores;
         this.score = builder.score;
     }
 
@@ -52,7 +47,6 @@ public class Player {
         private Long id;
         private String firstName;
         private String lastName;
-        private List<Score> scores;
         private Score score;
 
         public Player.Builder id (Long id) {
@@ -66,11 +60,6 @@ public class Player {
         }
         public Player.Builder lastName(String lastName) {
             this.lastName = lastName;
-            return this;
-        }
-
-        public Player.Builder scores(List<Score> scores){
-            this.scores = scores;
             return this;
         }
 

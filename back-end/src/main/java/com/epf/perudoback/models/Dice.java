@@ -2,7 +2,7 @@ package com.epf.perudoback.models;
 
 import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "dices")
 public class Dice {
 
     @Id

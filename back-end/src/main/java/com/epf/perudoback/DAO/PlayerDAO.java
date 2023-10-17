@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface PlayerDAO extends JpaRepository<Player, Long> {
 
-    @Query("SELECT p FROM Player p JOIN p.scores s WHERE s.id= :scoreId ")
+    @Query("SELECT p FROM Player p JOIN p.score s WHERE s.id= :scoreId ")
     List<Player> findByScoreId(int scoreId);
 }
