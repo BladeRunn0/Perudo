@@ -1,3 +1,18 @@
-<div *ngFor=" let score of scores | async">
-  {{score.score}} - {{score.id}}
-</div>>
+<div class="d-flex align-items-center">
+  <h1>Scores</h1>
+</div>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Score</th>
+    <th scope="col">ID</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let score of (scores | async)">
+    <td>{{ score.score }}</td>
+    <td>{{ score.id}}</td>
+  </tr>
+  </tbody>
+</table>
+

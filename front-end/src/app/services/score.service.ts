@@ -11,7 +11,7 @@ export class ScoreService {
   constructor(private http: HttpClient) {
   }
 
-  private scoreUrl = "http://localhost:8080/score"
+  private scoreUrl = "http://localhost:8080/scores"
 
   findAll(): Observable<Score[]> {
     return this.http.get<Score[]>(this.scoreUrl)

@@ -12,7 +12,6 @@ public class PlayerMapper {
                 .id(id)
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
-                .scores(dto.getScores())
                 .score(dto.getScore())
                 .build();
     }
@@ -21,7 +20,6 @@ public class PlayerMapper {
         return PlayerDTO.builder()
                 .firstName(player.getFirstName())
                 .lastName(player.getLastName())
-                .scores(player.getScores())
                 .score(player.getScore())
                 .build();
     }
