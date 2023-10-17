@@ -31,7 +31,7 @@ public class Main {
     }
 
     private static List<String> computerPrediction(List<Dice> listOfDiceValues){
-        enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX} // Without DOUBT
+        enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
         List<String> prediction = new ArrayList<>();
 
         //Choose dice's face
@@ -39,19 +39,19 @@ public class Main {
         int randIndex = randFace.nextInt(predict.values().length);
 
         //Choose number
-//        if(predict.values()[randIndex] != predict.DOUBT){
-//            Random randTotalNumber = new Random();
-//            int randNumber = randTotalNumber.nextInt(listOfDices.size());
-//
-//            prediction.add(predict.values()[randIndex].toString());
-//            prediction.add(String.valueOf(randNumber));
-//        }else{
-//            prediction.add(predict.values()[randIndex].toString());
-//        }
-        Random randTotalNumber = new Random();
-        int randNumber = randTotalNumber.nextInt(listOfDiceValues.size());
-        prediction.add(predict.values()[randIndex].toString());
-        prediction.add(String.valueOf(randNumber));
+        if(predict.values()[randIndex] != predict.DOUBT){
+            Random randTotalNumber = new Random();
+            int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
+
+            prediction.add(predict.values()[randIndex].toString());
+            prediction.add(String.valueOf(randNumber));
+        }else{
+            prediction.add(predict.values()[randIndex].toString());
+        }
+//        Random randTotalNumber = new Random();
+//        int randNumber = randTotalNumber.nextInt(listOfDiceValues.size());
+//        prediction.add(predict.values()[randIndex].toString());
+//        prediction.add(String.valueOf(randNumber));
 
         return prediction;
 
@@ -62,7 +62,7 @@ public class Main {
             String currentFace = predictions.get(i).get(0);
             String previousFace = predictions.get(i - 1).get(0);
 
-            if (!currentFace.equals("DOUBT")) {
+            if (!currentFace.contains("DOUBT") && !previousFace.contains("DOUBT")) {
                 String currentCount = predictions.get(i).get(1);
                 String previousCount = predictions.get(i - 1).get(1);
                 if (currentFace.equals("PACO") && !previousFace.equals("PACO")) {
@@ -70,15 +70,11 @@ public class Main {
                     int expectedPacoCount = (int) Math.ceil(divisionResult);
                     predictions.get(i).set(1, String.valueOf(expectedPacoCount));
                 } else if(currentFace.equals("PACO") && previousFace.equals("PACO")){
-                    if (Integer.parseInt(currentCount) <= Integer.parseInt(previousCount)) {
-                        int updatedCount = Integer.parseInt(previousCount) + 1;
-                        predictions.get(i).set(1, String.valueOf(updatedCount));
-                    }
+                    int updatedCount = Integer.parseInt(previousCount) + 1;
+                    predictions.get(i).set(1, String.valueOf(updatedCount));
                 }else if (currentFace.equals(previousFace)) {
-                    if (Integer.parseInt(currentCount) <= Integer.parseInt(previousCount)) {
-                        int updatedCount = Integer.parseInt(previousCount) + 1;
-                        predictions.get(i).set(1, String.valueOf(updatedCount));
-                    }
+                    int updatedCount = Integer.parseInt(previousCount) + 1;
+                    predictions.get(i).set(1, String.valueOf(updatedCount));
                 } else {
                     int currentDiceValue = DiceValue.getStringDiceValue(currentFace);
                     int previousDiceValue = DiceValue.getStringDiceValue(previousFace);
@@ -142,6 +138,8 @@ public class Main {
 
         // Applying rules on computer predictions - TODO gestion doute
         applyRules(predictions);
+        System.out.println("Première salve de prédictions modifiées : \n" + predictions);
+
         applyRules(predictions);
 
 
