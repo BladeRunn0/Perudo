@@ -1,81 +1,33 @@
 package com.epf.perudoback.models;
 
-import java.io.Serializable;
+import jakarta.persistence.*;
 
-public enum Dice implements Serializable {
-    PACO, DEUX, TROIS, QUATRE, CINQ, SIX;
+@Entity
+public class Dice {
 
-    public static boolean bigger(Dice a, Dice b) {
-        return a.ord() > b.ord();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private DiceValue diceValue;
+
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player player;
+
+    public Dice(){}
+
+    public DiceValue getDiceValue() {
+        return diceValue;
     }
 
-    private int ord() {
-        switch (this) {
-            case PACO:
-                return 1;
-            case DEUX:
-                return 2;
-            case TROIS:
-                return 3;
-            case QUATRE:
-                return 4;
-            case CINQ:
-                return 5;
-            default:
-                return 6;
-        }
+    public void setDiceValue(DiceValue diceValue) {
+        this.diceValue = diceValue;
     }
 
-    public static Dice getFromNumber(int n) {
-        switch (n) {
-            case 1:
-                return Dice.PACO;
-            case 2:
-                return Dice.DEUX;
-            case 3:
-                return Dice.TROIS;
-            case 4:
-                return Dice.QUATRE;
-            case 5:
-                return Dice.CINQ;
-            default:
-                return Dice.SIX;
-        }
-    }
-
-    public static int getStringDiceValue(String face) {
-        switch (face) {
-            case "PACO":
-                return 1;
-            case "DEUX":
-                return 2;
-            case "TROIS":
-                return 3;
-            case "QUATRE":
-                return 4;
-            case "CINQ":
-                return 5;
-            case "SIX":
-                return 6;
-            default:
-                return 0;
-        }
-    }
-
-    public static String getStringHigherFace(String face) {
-        switch (face) {
-            case "PACO":
-                return "DEUX";
-            case "DEUX":
-                return "TROIS";
-            case "TROIS":
-                return "QUATRE";
-            case "QUATRE":
-                return "CINQ";
-            case "CINQ":
-                return "SIX";
-            default:
-                return "SIX";
-        }
+    @Override
+    public String toString() {
+        return diceValue.toString();
     }
 }

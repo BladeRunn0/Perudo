@@ -33,7 +33,15 @@ create table players
 (
     id SERIAL PRIMARY KEY,
     first_name TEXT not null,
-    last_name TEXT not null
+    last_name TEXT not null,
+    active_dice_number int null
+);
+
+create table dices
+(
+  id SERIAL PRIMARY KEY,
+  player_id SERIAL not null,
+  dice_value TEXT not null
 );
 
 create table scores

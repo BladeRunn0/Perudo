@@ -1,6 +1,7 @@
 package com.epf.perudoback;
 
 import com.epf.perudoback.models.Dice;
+import com.epf.perudoback.models.DiceValue;
 import com.epf.perudoback.models.Player;
 
 import java.util.*;
@@ -17,19 +18,19 @@ public class Main {
         }
         return listPlayer;
     }
-    private static List<Integer> diceFrequencies(List<Dice> listOfDices){
+    private static List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
         List<Integer> countDices = new ArrayList<>();
-        countDices.add(Collections.frequency(listOfDices, Dice.PACO));
-        countDices.add(Collections.frequency(listOfDices, Dice.DEUX));
-        countDices.add(Collections.frequency(listOfDices, Dice.TROIS));
-        countDices.add(Collections.frequency(listOfDices, Dice.QUATRE));
-        countDices.add(Collections.frequency(listOfDices, Dice.CINQ));
-        countDices.add(Collections.frequency(listOfDices, Dice.SIX));
+        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.PACO));
+        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.DEUX));
+        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.TROIS));
+        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.QUATRE));
+        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.CINQ));
+        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.SIX));
 
         return countDices;
     }
 
-    private static List<String> computerPrediction(List<Dice> listOfDices){
+    private static List<String> computerPrediction(List<Dice> listOfDiceValues){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX} // Without DOUBT
         List<String> prediction = new ArrayList<>();
 
@@ -48,7 +49,7 @@ public class Main {
 //            prediction.add(predict.values()[randIndex].toString());
 //        }
         Random randTotalNumber = new Random();
-        int randNumber = randTotalNumber.nextInt(listOfDices.size());
+        int randNumber = randTotalNumber.nextInt(listOfDiceValues.size());
         prediction.add(predict.values()[randIndex].toString());
         prediction.add(String.valueOf(randNumber));
 
@@ -79,12 +80,12 @@ public class Main {
                         predictions.get(i).set(1, String.valueOf(updatedCount));
                     }
                 } else {
-                    int currentDiceValue = Dice.getStringDiceValue(currentFace);
-                    int previousDiceValue = Dice.getStringDiceValue(previousFace);
+                    int currentDiceValue = DiceValue.getStringDiceValue(currentFace);
+                    int previousDiceValue = DiceValue.getStringDiceValue(previousFace);
                     if (currentDiceValue <= previousDiceValue) {
                         Random randFace = new Random();
                         if(randFace.nextInt(0,2) == 0){ // On change de face et on garde le nombre
-                            currentFace = Dice.getStringHigherFace(previousFace);
+                            currentFace = DiceValue.getStringHigherFace(previousFace);
                             predictions.get(i).set(0, currentFace);
                         }else{  // On garde la face précédente
                             currentFace = previousFace;
@@ -123,19 +124,19 @@ public class Main {
         System.out.println("Your dices : " + listPlayer.get(0).getDices());
 
         // Instantiating global list of all dices on table to manage predictions
-        List<Dice> listOfDices = new ArrayList<>();
+        List<Dice> listOfDiceValues = new ArrayList<>();
         for(int i=0; i<listPlayer.size();i++){
-            listOfDices.addAll(listPlayer.get(i).getDices());
+            listOfDiceValues.addAll(listPlayer.get(i).getDices());
         }
-        System.out.println("Concat : " + listOfDices);
+        System.out.println("Concat : " + listOfDiceValues);
 
         // Computing frequency of each face of dice
-        List<Integer> countDices = diceFrequencies(listOfDices);
+        List<Integer> countDices = diceFrequencies(listOfDiceValues);
 
         // Making predictions
         List<List<String>> predictions = new ArrayList<>();
         for(int i = 1; i<listPlayer.size(); i++){
-            predictions.add(computerPrediction(listOfDices));
+            predictions.add(computerPrediction(listOfDiceValues));
         }
         System.out.println("Les prédictions de base :\n" + predictions);
 

@@ -3,9 +3,7 @@ package com.epf.perudoback.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,7 +30,9 @@ public class Player {
     @JoinColumn(name = "score_id")
     private Score score;
 
+    @Column(name = "active_dice_number")
     private int activeDiceNumber;
+    @OneToMany(mappedBy = "player", cascade = CascadeType.REMOVE)
     private List<Dice> dices;
 
     private Player(Builder builder){
@@ -88,7 +88,10 @@ public class Player {
         this.dices.clear();
         Random rand = new Random();
         for(int i=0; i < activeDiceNumber; i++){
-            this.dices.add(Dice.getFromNumber(rand.nextInt(7)));
+            Dice dice = new Dice();
+            dice.setDiceValue(DiceValue.getFromNumber(rand.nextInt(7)));
+            this.dices.add(dice);
+
         }
     }
 
@@ -96,7 +99,9 @@ public class Player {
         this.dices.clear();
         Random rand = new Random();
         for(int i=0; i < activeDiceNumber-nbDiceToRemove; i++){
-            this.dices.add(Dice.getFromNumber(rand.nextInt(7)));
+            Dice dice = new Dice();
+            dice.setDiceValue(DiceValue.getFromNumber(rand.nextInt(7)));
+            this.dices.add(dice);
         }
     }
 
