@@ -53,6 +53,6 @@ create table scores
 create table player_score
 (
     id SERIAL PRIMARY KEY,
-    player_id int not null,
-    score_id int not null
+    player_id SERIAL not null,
+    score_id SERIAL not null
 )
