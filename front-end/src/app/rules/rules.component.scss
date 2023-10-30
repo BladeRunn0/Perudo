@@ -1,16 +1,19 @@
-@use "src/theme";
+//@use "src/theme";
 
 :host {
   display: flex;
   flex-direction: column;
   padding: 30px;
+  align-items: flex-start;
+  margin-left: 25px;
 
   h1 {
+    font-family: Jokerman, sans-serif;
     display: flex;
-    color: theme.$common-purple;
-    font-size: xx-large;
+    //color: theme.$common-purple;
+    font-size: xxx-large;
     margin-right: 100px;
-    margin-bottom: 0;
+    margin-bottom: 30px;
   }
 
   table {
@@ -28,4 +31,16 @@
     height: 3rem;
     width: auto;
   }
+
+  .subtitle {
+    font-family: Jokerman, sans-serif;
+    font-size: xx-large;
+    text-decoration: underline dotted red;
+
+    .logo {
+      width: 50px;
+
+    }
+  }
+
 }
