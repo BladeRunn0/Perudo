@@ -19,13 +19,16 @@ public class Main {
         return listPlayer;
     }
     private static List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
-        List<Integer> countDices = new ArrayList<>();
-        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.PACO));
-        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.DEUX));
-        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.TROIS));
-        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.QUATRE));
-        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.CINQ));
-        countDices.add(Collections.frequency(listOfDiceValues, DiceValue.SIX));
+        List<Integer> countDices = new ArrayList<>(Collections.nCopies(6, 0)); // Initialisation de la liste avec des zéros
+
+        for (Dice dice : listOfDiceValues) {
+            if (dice.getDiceValue() != null) {
+                int value = dice.getDiceValue().ordinal(); // Obtention de l'indice de l'énumération
+                countDices.set(value, countDices.get(value) + 1); // Incrémenter le compteur
+            }
+        }
+
+        System.out.println(countDices);
 
         return countDices;
     }
@@ -102,7 +105,17 @@ public class Main {
                     }
                 }
             }
+
+            if (currentFace.contains("DOUBT") && !previousFace.contains("DOUBT")){
+                System.out.println("DOUBT at pos : " + predictions.get(i));
+                break;
+            }
         }
+    }
+
+    private static void checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
+
+
     }
 
     public static void main(String[] args) {
