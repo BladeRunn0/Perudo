@@ -28,8 +28,6 @@ public class Main {
             }
         }
 
-        System.out.println(countDices);
-
         return countDices;
     }
 
@@ -60,7 +58,10 @@ public class Main {
 
     }
 
-    private static void applyRules(List<List<String>> predictions){
+    private static String applyRules(List<List<String>> predictions, List<Integer> countDices){
+
+        String doubtResult = null;
+
         for (int i = 1; i < predictions.size(); i++) {
             String currentFace = predictions.get(i).get(0);
             String previousFace = predictions.get(i - 1).get(0);
@@ -107,15 +108,51 @@ public class Main {
             }
 
             if (currentFace.contains("DOUBT") && !previousFace.contains("DOUBT")){
-                System.out.println("DOUBT at pos : " + predictions.get(i));
+                doubtResult = checkDoubt(predictions.get(i-1), countDices);
                 break;
             }
         }
+
+        return doubtResult;
     }
 
-    private static void checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
+    private static String checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
 
+        switch (prevPlayerPred.get(0)){
 
+            case "PACO":
+                if(Integer.parseInt(prevPlayerPred.get(1)) == countDices.get(0)){
+                    return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was right ! Doubt emitter loses";
+                }
+                return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was wrong ! Doubt emitter wins";
+            case "DEUX":
+                if(Integer.parseInt(prevPlayerPred.get(1)) == countDices.get(1)){
+                    return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was right ! Doubt emitter loses";
+                }
+                return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was wrong ! Doubt emitter wins";
+            case "TROIS":
+                if(Integer.parseInt(prevPlayerPred.get(1)) == countDices.get(2)){
+                    return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was right ! Doubt emitter loses";
+                }
+                return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was wrong ! Doubt emitter wins";
+            case "QUATRE":
+                if(Integer.parseInt(prevPlayerPred.get(1)) == countDices.get(3)){
+                    return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was right ! Doubt emitter loses";
+                }
+                return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was wrong ! Doubt emitter wins";
+            case "CINQ":
+                if(Integer.parseInt(prevPlayerPred.get(1)) == countDices.get(4)){
+                    return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was right ! Doubt emitter loses";
+                }
+                return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was wrong ! Doubt emitter wins";
+            case "SIX":
+                if(Integer.parseInt(prevPlayerPred.get(1)) == countDices.get(5)){
+                    return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was right ! Doubt emitter loses";
+                }
+                return "Prediction " + prevPlayerPred.get(1) + " " + prevPlayerPred.get(0) + " was wrong ! Doubt emitter wins";
+            default:
+                return null;
+        }
     }
 
     public static void main(String[] args) {
@@ -149,14 +186,16 @@ public class Main {
         }
         System.out.println("Les prédictions de base :\n" + predictions);
 
-        // Applying rules on computer predictions - TODO gestion doute
-        applyRules(predictions);
+        // Applying rules on computer predictions
+        applyRules(predictions, countDices);
         System.out.println("Première salve de prédictions modifiées : \n" + predictions);
 
-        applyRules(predictions);
-
-
+        String doubtCheck = applyRules(predictions, countDices);
         System.out.println("Prédictions modifiées :\n" + predictions);
+
+        if(doubtCheck != null){
+            System.out.println(doubtCheck);
+        }
 
 //        while(isPlaying){
 //            System.out.println("Place your bets :\n" +
