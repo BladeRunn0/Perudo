@@ -31,24 +31,36 @@ public class Main {
         return countDices;
     }
 
-    private static List<String> computerPrediction(List<Dice> listOfDiceValues){
+    private static List<String> computerPrediction(List<Dice> listOfDiceValues, int i){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
         List<String> prediction = new ArrayList<>();
 
         //Choose dice's face
         Random randFace = new Random();
-        int randIndex = randFace.nextInt(predict.values().length);
+
 
         //Choose number
-        if(predict.values()[randIndex] != predict.DOUBT){
+        if(i == 1){ // First player can't doubt
+            int randIndexFirstPlayer = randFace.nextInt(predict.values().length-1);
+
             Random randTotalNumber = new Random();
             int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
 
-            prediction.add(predict.values()[randIndex].toString());
+            prediction.add(predict.values()[randIndexFirstPlayer].toString());
             prediction.add(String.valueOf(randNumber));
         }else{
-            prediction.add(predict.values()[randIndex].toString());
+            int randIndex = randFace.nextInt(predict.values().length);
+            if(predict.values()[randIndex] != predict.DOUBT){
+                Random randTotalNumber = new Random();
+                int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
+
+                prediction.add(predict.values()[randIndex].toString());
+                prediction.add(String.valueOf(randNumber));
+            }else{
+                prediction.add(predict.values()[randIndex].toString());
+            }
         }
+
 //        Random randTotalNumber = new Random();
 //        int randNumber = randTotalNumber.nextInt(listOfDiceValues.size());
 //        prediction.add(predict.values()[randIndex].toString());
@@ -155,124 +167,127 @@ public class Main {
         }
     }
 
+    private static String playerBet(String betDice, List<Integer> countDices){
+        switch (betDice){
+            case "1":
+                System.out.println("How many ?");
+                String bet = new Scanner(System.in).next();
+                if(bet.equals(countDices.get(0).toString())){
+                    return "Good job !";
+                }else{
+                    return "Too bad !";
+                }
+            case "2":
+                System.out.println("How many ?");
+                String bet2 = new Scanner(System.in).next();
+                if(bet2.equals(countDices.get(1).toString())){
+                    return "Good job !";
+                }else{
+                    return "Too bad !";
+                }
+            case "3":
+                System.out.println("How many ?");
+                String bet3 = new Scanner(System.in).next();
+                if(bet3.equals(countDices.get(2).toString())){
+                    return "Good job !";
+                }else{
+                    return "Too bad !";
+                }
+            case "4":
+                System.out.println("How many ?");
+                String bet4 = new Scanner(System.in).next();
+                if(bet4.equals(countDices.get(3).toString())){
+                    return "Good job !";
+                }else{
+                    return "Too bad !";
+                }
+            case "5":
+                System.out.println("How many ?");
+                String bet5 = new Scanner(System.in).next();
+                if(bet5.equals(countDices.get(4).toString())){
+                    return "Good job !";
+                }else{
+                    return "Too bad !";
+                }
+            case "6":
+                System.out.println("How many ?");
+                String bet6 = new Scanner(System.in).next();
+                if(bet6.equals(countDices.get(5).toString())){
+                    return "Good job !";
+                }else{
+                    return "Too bad !";
+                }
+            default:
+                return "Quitting";
+        }
+    }
+
     public static void main(String[] args) {
 
         boolean isPlaying = true;
 
-        System.out.println("Choose between 2 and 6 players :\n");
-        Scanner scNbPlayer = new Scanner(System.in);
-        int nbPlayer = scNbPlayer.nextInt();
+        while(isPlaying){
+            System.out.println("\n---------- NEW ROUND ----------\n");
+            System.out.println("Choose between 2 and 6 players (enter 0 to quit game) :\n");
+            Scanner scNbPlayer = new Scanner(System.in);
+            int nbPlayer = scNbPlayer.nextInt();
 
-        // Initiating list of players
-        List<Player> listPlayer = createPlayers(nbPlayer);
+            if(nbPlayer == 0){
+                break;
+            }
 
-        // Showing dices of human player
-        System.out.println("Your dices : " + listPlayer.get(0).getDices());
+            // Initiating list of players
+            List<Player> listPlayer = createPlayers(nbPlayer);
 
-        // Instantiating global list of all dices on table to manage predictions
-        List<Dice> listOfDiceValues = new ArrayList<>();
-        for(int i=0; i<listPlayer.size();i++){
-            listOfDiceValues.addAll(listPlayer.get(i).getDices());
+            // Showing dices of human player
+            System.out.println("Your dices : " + listPlayer.get(0).getDices());
+
+            // Instantiating global list of all dices on table to manage predictions
+            List<Dice> listOfDiceValues = new ArrayList<>();
+            for(int i=0; i<listPlayer.size();i++){
+                listOfDiceValues.addAll(listPlayer.get(i).getDices());
+            }
+            System.out.println("Concat : " + listOfDiceValues);
+
+            // Computing frequency of each face of dice
+            List<Integer> countDices = diceFrequencies(listOfDiceValues);
+
+            // Making predictions
+            List<List<String>> predictions = new ArrayList<>();
+            for(int i = 1; i<listPlayer.size(); i++){
+                predictions.add(computerPrediction(listOfDiceValues, i));
+            }
+            System.out.println("Les prédictions de base :\n" + predictions);
+
+            // Applying rules on computer predictions
+            applyRules(predictions, countDices);
+            System.out.println("DEBUG Première salve de prédictions modifiées : \n" + predictions);
+
+            String doubtCheck = applyRules(predictions, countDices);
+            System.out.println("Prédictions modifiées :\n" + predictions);
+
+            if(doubtCheck != null){
+                System.out.println(doubtCheck);
+            }else{
+                System.out.println("Place your bets :\n" +
+                        "1 - PACO\n" +
+                        "2 - DEUX\n" +
+                        "3 - TROIS\n" +
+                        "4 - QUATRE\n" +
+                        "5 - CINQ\n" +
+                        "6 - SIX\n" +
+                        "0 - Quit game\n");
+
+                Scanner scPlaceBet = new Scanner(System.in);
+                String betDice = scPlaceBet.next();
+
+                String playerResult = playerBet(betDice, countDices);
+                System.out.println(playerResult);
+                if(playerResult.equals("Quitting")){
+                    isPlaying = false;
+                }
+            }
+
         }
-        System.out.println("Concat : " + listOfDiceValues);
-
-        // Computing frequency of each face of dice
-        List<Integer> countDices = diceFrequencies(listOfDiceValues);
-
-        // Making predictions
-        List<List<String>> predictions = new ArrayList<>();
-        for(int i = 1; i<listPlayer.size(); i++){
-            predictions.add(computerPrediction(listOfDiceValues));
-        }
-        System.out.println("Les prédictions de base :\n" + predictions);
-
-        // Applying rules on computer predictions
-        applyRules(predictions, countDices);
-        System.out.println("Première salve de prédictions modifiées : \n" + predictions);
-
-        String doubtCheck = applyRules(predictions, countDices);
-        System.out.println("Prédictions modifiées :\n" + predictions);
-
-        if(doubtCheck != null){
-            System.out.println(doubtCheck);
-        }
-
-//        while(isPlaying){
-//            System.out.println("Place your bets :\n" +
-//                    "1 - PACO\n" +
-//                    "2 - DEUX\n" +
-//                    "3 - TROIS\n" +
-//                    "4 - QUATRE\n" +
-//                    "5 - CINQ\n" +
-//                    "6 - SIX\n" +
-//                    "0 - Quit game\n");
-//            Scanner scPlaceBet = new Scanner(System.in);
-//            String betDice = scPlaceBet.next();
-//            switch (betDice){
-//                case "1":
-//                    System.out.println("How many ?");
-//                    String bet = new Scanner(System.in).next();
-//                    if(bet.equals(countDices.get(0).toString())){
-//                        System.out.println("Good job !");
-//                        break;
-//                    }else{
-//                        System.out.println("Too bad !");
-//                        break;
-//                    }
-//                case "2":
-//                    System.out.println("How many ?");
-//                    String bet2 = new Scanner(System.in).next();
-//                    if(bet2.equals(countDices.get(1).toString())){
-//                        System.out.println("Good job !");
-//                        break;
-//                    }else{
-//                        System.out.println("Too bad !");
-//                        break;
-//                    }
-//                case "3":
-//                    System.out.println("How many ?");
-//                    String bet3 = new Scanner(System.in).next();
-//                    if(bet3.equals(countDices.get(2).toString())){
-//                        System.out.println("Good job !");
-//                        break;
-//                    }else{
-//                        System.out.println("Too bad !");
-//                        break;
-//                    }
-//                case "4":
-//                    System.out.println("How many ?");
-//                    String bet4 = new Scanner(System.in).next();
-//                    if(bet4.equals(countDices.get(3).toString())){
-//                        System.out.println("Good job !");
-//                        break;
-//                    }else{
-//                        System.out.println("Too bad !");
-//                        break;
-//                    }
-//                case "5":
-//                    System.out.println("How many ?");
-//                    String bet5 = new Scanner(System.in).next();
-//                    if(bet5.equals(countDices.get(4).toString())){
-//                        System.out.println("Good job !");
-//                        break;
-//                    }else{
-//                        System.out.println("Too bad !");
-//                        break;
-//                    }
-//                case "6":
-//                    System.out.println("How many ?");
-//                    String bet6 = new Scanner(System.in).next();
-//                    if(bet6.equals(countDices.get(5).toString())){
-//                        System.out.println("Good job !");
-//                        break;
-//                    }else{
-//                        System.out.println("Too bad !");
-//                        break;
-//                    }
-//                default:
-//                    isPlaying = false;
-//                    break;
-//            }
-//        }
     }
 }
