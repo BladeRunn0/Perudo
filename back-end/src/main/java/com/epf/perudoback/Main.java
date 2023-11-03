@@ -167,7 +167,7 @@ public class Main {
         }
     }
 
-    private static String playerBet(String betDice, List<Integer> countDices){
+    private static String playerBet(String betDice, List<Integer> countDices, List<List<String>> predictions){
         switch (betDice){
             case "1":
                 System.out.println("How many ?");
@@ -217,6 +217,9 @@ public class Main {
                 }else{
                     return "Too bad !";
                 }
+            case "7":
+                String doubtResult = checkDoubt(predictions.get(predictions.size()-1), countDices);
+                return doubtResult;
             default:
                 return "Quitting";
         }
@@ -264,11 +267,16 @@ public class Main {
             System.out.println("DEBUG Première salve de prédictions modifiées : \n" + predictions);
 
             String doubtCheck = applyRules(predictions, countDices);
-            System.out.println("Prédictions modifiées :\n" + predictions);
+//            System.out.println("Prédictions modifiées :\n" + predictions);
+
 
             if(doubtCheck != null){
+                List<String> doubt = new ArrayList<>();
+                doubt.add("DOUBT");
+                System.out.println("Prédictions modifiées :\n" + predictions.subList(0, predictions.indexOf(doubt)+1));
                 System.out.println(doubtCheck);
             }else{
+                System.out.println("Prédictions modifiées :\n" + predictions);
                 System.out.println("Place your bets :\n" +
                         "1 - PACO\n" +
                         "2 - DEUX\n" +
@@ -276,12 +284,13 @@ public class Main {
                         "4 - QUATRE\n" +
                         "5 - CINQ\n" +
                         "6 - SIX\n" +
+                        "7 - DOUBT\n" +
                         "0 - Quit game\n");
 
                 Scanner scPlaceBet = new Scanner(System.in);
                 String betDice = scPlaceBet.next();
 
-                String playerResult = playerBet(betDice, countDices);
+                String playerResult = playerBet(betDice, countDices, predictions);
                 System.out.println(playerResult);
                 if(playerResult.equals("Quitting")){
                     isPlaying = false;
