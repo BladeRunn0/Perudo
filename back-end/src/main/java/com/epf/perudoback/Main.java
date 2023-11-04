@@ -60,14 +60,7 @@ public class Main {
                 prediction.add(predict.values()[randIndex].toString());
             }
         }
-
-//        Random randTotalNumber = new Random();
-//        int randNumber = randTotalNumber.nextInt(listOfDiceValues.size());
-//        prediction.add(predict.values()[randIndex].toString());
-//        prediction.add(String.valueOf(randNumber));
-
         return prediction;
-
     }
 
     private static String applyRules(List<List<String>> predictions, List<Integer> countDices){
@@ -124,7 +117,6 @@ public class Main {
                 break;
             }
         }
-
         return doubtResult;
     }
 
