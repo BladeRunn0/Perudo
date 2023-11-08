@@ -15,4 +15,8 @@ export class PlayerService {
   findAll(): Observable<Player[]> {
     return this.http.get<Player[]>(this.playerUrl)
   }
+
+  deletePlayers(player: Player) {
+      return this.http.delete(`${this.playerUrl}/${player.id}`)
+  }
 }

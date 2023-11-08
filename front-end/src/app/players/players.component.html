@@ -12,6 +12,11 @@
   <tr *ngFor="let player of (players | async)">
     <td>{{ player.firstName }}</td>
     <td>{{ player.lastName }}</td>
+    <td>
+      <button mat-icon-button color="warn" (click)="deletePlayer($event, player)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>

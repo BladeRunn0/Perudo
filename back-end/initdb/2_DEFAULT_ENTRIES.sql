@@ -23,6 +23,9 @@ INSERT INTO courses (id, name, hours) VALUES (8, 'Lean Management', 30);
 INSERT INTO student_course (id, student_id, course_id) VALUES (1, 1, 7);
 
 INSERT INTO players (id, first_name, last_name, active_dice_number) VALUES (1, 'Louis', 'CAROZZO', null);
+INSERT INTO players (id, first_name, last_name, active_dice_number) VALUES (1, 'Florian', 'GUYOT', null);
+INSERT INTO players (id, first_name, last_name, active_dice_number) VALUES (1, 'Clémence', 'DEBADIER', null);
+
 INSERT INTO scores (id, score) VALUES (1, 100);
 INSERT INTO player_score (id, player_id, score_id) VALUES (1, 1, 1);
 INSERT INTO dices (id, player_id, dice_value) VALUES (1, 1, null);
