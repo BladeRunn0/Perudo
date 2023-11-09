@@ -16,6 +16,11 @@ export class PlayerService {
     return this.http.get<Player[]>(this.playerUrl)
   }
 
+  playGame() {
+    // @ts-ignore
+    return this.http.get()
+  }
+
   deletePlayers(player: Player) {
       return this.http.delete(`${this.playerUrl}/${player.id}`)
   }
