@@ -18,7 +18,12 @@ export class PlayersComponent{
 
   playGame(event: any){
     event.stopPropagation()
-    this.playerService.playGame()
+    this.playerService.playGame().subscribe(() => this.router.navigate(["players"]))
+  }
+
+  addPlayer(event: any, player: Player){
+    event.stopPropagation()
+    this.playerService.addPlayer(player).subscribe(() => this.router.navigate(["players"]))
   }
 
   deletePlayer(event: any, player: Player) {

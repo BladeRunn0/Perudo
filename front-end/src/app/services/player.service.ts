@@ -17,11 +17,18 @@ export class PlayerService {
   }
 
   playGame() {
-    // @ts-ignore
-    return this.http.get()
+    return this.http.get<Player[]>(this.playerUrl)
   }
 
   deletePlayers(player: Player) {
       return this.http.delete(`${this.playerUrl}/${player.id}`)
+  }
+
+  addPlayer(player: Player) {
+    return this.http.post(this.playerUrl, player)
+  }
+
+  findById(id: number) {
+    return this.http.get(`${this.playerUrl}/${id}`)
   }
 }

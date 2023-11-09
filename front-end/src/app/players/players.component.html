@@ -1,5 +1,6 @@
 <div class="d-flex align-items-center">
   <h1>Players</h1>
+  <a mat-raised-button color="primary" routerLink="/player-details/new">New</a>
 </div>
 <table class="table table-hover">
   <thead>
@@ -13,10 +14,7 @@
     <td>{{ player.firstName }}</td>
     <td>{{ player.lastName }}</td>
     <td>
-<!--      <button mat-icon-button color="warn" (click)="deletePlayer($event, player)">-->
-<!--        <mat-icon>delete</mat-icon>-->
-<!--      </button>-->
-      <button mat-icon-button color="warn" (click)="playGame">
+      <button mat-icon-button color="warn" (click)="deletePlayer($event, player)" routerLink="/game-screen" >
         <mat-icon>delete</mat-icon>
       </button>
     </td>
