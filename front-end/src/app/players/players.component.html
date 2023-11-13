@@ -10,7 +10,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let player of (players | async)">
+  <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">
     <td>{{ player.firstName }}</td>
     <td>{{ player.lastName }}</td>
     <td>

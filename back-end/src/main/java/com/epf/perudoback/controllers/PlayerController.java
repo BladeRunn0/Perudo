@@ -33,6 +33,7 @@ public class PlayerController {
 
     @DeleteMapping("/{id}")
     public void deletePlayer(@PathVariable Long id) {
+
         playerService.deleteById(id);
     }
 
@@ -44,5 +45,10 @@ public class PlayerController {
     @PostMapping("/{id}")
     public void updatePlayer(@RequestBody PlayerDTO playerDTO, @PathVariable Long id) {
         playerService.updatePlayer(playerDTO, id);
+    }
+
+    @GetMapping("/{_}")
+    public List<Player> playGame(){
+        return playerService.playGame();
     }
 }

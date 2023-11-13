@@ -3,6 +3,7 @@ import {map, Observable} from "rxjs";
 import {Player} from "../../models/player.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlayerService} from "../../services/player.service";
+import {Student} from "../../models/student.model";
 
 @Component({
   selector: 'epf-player-details',
@@ -16,14 +17,20 @@ export class PlayerDetailsComponent implements OnInit {
     private _route: ActivatedRoute,
     private router: Router,
     private playerService: PlayerService,
-  ){}
+  ) {
+  }
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   addPlayer(player: Player) {
-    this.playerService.addPlayer(player).subscribe(() => {
-      this.router.navigate(["players"])
-    })
-  }
-  ngOnInit(): void {
-  }
+    const id = this._route.snapshot.params["id"]
 
+    if (id == "new") {
+      this.playerService.addPlayer(player).subscribe(() => {
+        this.router.navigate(["players"])
+      })
+    }
+  }
 }

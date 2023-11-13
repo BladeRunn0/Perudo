@@ -17,6 +17,7 @@ export class PlayerService {
   }
 
   playGame() {
+    console.log("playGame from player.service")
     return this.http.get<Player[]>(this.playerUrl)
   }
 
