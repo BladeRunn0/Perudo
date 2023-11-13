@@ -6,33 +6,65 @@
 <body>
 
 <h1>Règles du Perudo</h1>
-<div class="subtitle">
-  <img src="assets/images/azteque_logo.png" class="logo">
-  BUT DU JEU
+<div class="col">
+  <div class="left-side">
+    <div class="subtitle">
+      <img src="assets/images/azteque_logo.png" class="logo">
+      BUT DU JEU
+    </div>
+    <p>Le but du jeu est d'être le dernier joueur à posséder un ou plusieurs dés.</p>
+    <div class="subtitle">
+      <img src="assets/images/azteque_logo.png" class="logo">
+      DÉROULEMENT DE LA PARTIE
+    </div>
+    <p>Tous les joueurs agitent en même temps leur gobelet qui contient les dés, puis le pose sur la table.
+      Chaque joueur peut regarder la valeur de ses dés. C'est ensuite au 1er joueur de jouer.</p>
+
+
+    <h2>DÉROULEMENT DU 1ER TOUR DE JEU</h2>
+    <p>Le 1er joueur doit faire une proposition, c'est-à-dire annoncer une valeur de dé et un nombre de dés, en fonction de son propre tirage
+      et de ce qu'il pense y avoir sous les gobelets des autres joueurs. Il doit faire une approximation aussi proche de la réalité que possible mais peut,
+      bien entendu, bluffer.</p>
+    <p class="exemple"><b>Exemple : </b>Le 1er joueur peut annoncer « il y a au moins 5 dés de valuer 4 autour de la table ».</p>
+
+    <h2>DÉROULEMENT D'UNE MANCHE</h2>
+    <p>Le joueur suivant a 2 choix qui s'offrent à lui : soit il fait une autre proposition, soit il doute de la véracité de la proposition du joueur précédent et annonce "Dudo".</p>
+    <h3>1- Faire une autre proposition :</h3>
+    <p>Il doit proposer un nombre de dés ou une valeur de dé supérieur à la proposition précédente</p>
+    <p class="exemple"><b>Exemple : </b>Si le joueur précédent a dit « je pense qu'il y a au moins 5 dés de valeur 4 autour de la table », le joueur suivant peut alors surenchérir en disant « je pense qu'il y a au moins 9 dés de valeur 4 autour de la table » (augmenter le nombre de dés) ou « je pense qu'il y a au moins 5 dés de valeur 6 autour de la table » (dans ce cas, il a augmenté la valeur des dés).</p>
+    <p>Un joueur peut toujours proposer un nombre de dés indiquant un « 1 » (représentée par la tête de Paco le toucan), mais le nombre de dés proposé sera alors au moins égal à la moitié de la proposition du joueur précédent (arrondi à l'entier supérieur).</p>
+    <p class="exemple"><b>Exemple : </b>Un joueur a annoncé précédemment « il y a au moins 11 dés de valeur 4 autour de la table ». Le joueur suivant peut alors choisir d'annoncer « je pense qu'il y a 6 PACO (dés de valeur 1) autour de la table ». Pourquoi 6 dés ? Parce que 11 dés divisé par 2 = 5,5 arrondi à l'entier supérieur : 6 ! </p>
+    <h3>2- Annoncer « Dudo » :</h3>
+    <p>Si vous pensez que le joueur précédent a bluffé et que sa proposition est inexacte, il est temps d'annoncer « Dudo ». Tous les joueurs soulèvent alors leur gobelet pour révéler tous les dés. On fait ensuite le total des dés qui indiquent la valeur correspondante à la dernière proposition (on prend aussi en compte les dés Paco). Si la proposition du joueur précédent s'est révélée exacte, le joueur qui a annoncé « Dudo » perd un dé. Si la proposition s'avère erronée, c'est le joueur qui l'a faite qui perd un dé.</p>
+    <p class="remarque">Les dé perdus se sont plus utilisés de toute la partie et ne sont jamais pris en compte dans le total des dés jetés.</p>
+    <p>Une nouvelle manche peut alors commencer. Si un joueur ne possède plus aucun dé, il est éliminé de la partie. La partie se poursuit sans lui jusqu'à ce que qu'il n'y ait plus qu'un seul joueur. Il est alors déclaré vainqueur.</p>
+
+  </div>
+  <div class="right-side">
+    <div class="subtitle">
+      <img src="assets/images/azteque_logo.png" class="logo">
+      CAS PARTICULIERS
+    </div>
+    <h2>LES DÉS « PACO »</h2>
+    <p>Les « 1 » sont remplacés par le dessin d'un toucan nommé Paco. Ces « 1 » sont considérés comme des jokers et comptent toujours comme ayant la même valeur que celle de la proposition des joueurs. On les appelle des Paco.</p>
+    <p class="remarque">On ne peut jamais commnencer une manche en proposant un certain nombre de Paco.</p>
+    <h2>PROPOSER DES PACO</h2>
+    <p>Si le joueur précédent a proposé un certain nombre de Paco, vous avez deux possibilités : soit proposer un un nombre de Paco supérieur, soit proposer une autre valeur de dés au moins supérieur à deux fois la proposition précédentre plus un.</p>
+    <p class="exemple"><b>Exemple : </b>Le joueur précédent a dit « je pense qu'il y a au moins 3 Paco autour de la table ». Le joueur suivant peut ensuite dire « je pense qu'il y a au moins 7 dés indiquant la valeur 4 autour de la table ». Pourquoi 7 dés ? Parce que 3 dés de le proposition précédente fois 2, plus 1 = 7 !</p>
+    <h2>« PALIFICO »</h2>
+    <p>Lorsqu'un joueur n'a plus qu'un seul dé, il doit annoncer « Palifico » et c'est lui qui fait la 1ère proposition de la manche suivante. Lors de cette phase de jeu, les Paco ne sont pas considérés comme des jokers et les joueurs ne peuvent pas modifier la valeur de dé proposée.</p>
+    <p class="exemple"><b>Exemple : </b>Un joueur annonce « palifico » et dit « je pense qu'il y a au moins 5 dés de valeur 3 autour de la table ». Le joueur suivant peut alors annoncer « je pense qu'il y a au moins 7 dés de valeur 3 autour de la table », mais absolument pas « je pense qu'il y a au moins 5 dés de valeur 4 autour de la table ».</p>
+    <p class="remarque">Un joueur n'est « palifico » que s'il a perdu un dé durant la manche précédente, pas durant les manches qui suivent.</p>
+
+    <div class="subtitle">
+      <img src="assets/images/azteque_logo.png" class="logo">
+      VARIANTE
+    </div>
+    <h2>ANNONCER « CALZA »</h2>
+    <p>Cette variante permet à n'importe quel joueur, quand il doit fair eune proposition, de dire « calza » s'il pense que la proposition précédente est strictement exacte (c'est-à-dire qu'il y a exactement le nombre de dés proposé autour de la table – au lieu d'un nombre de dés supérieur ou égal).Si le joueur qui a dit « calza » a raison, il reprend un dé parmi ceux qu'il avait perdus. Sinon, il perd un dé et le jeu continue normalement avec une nouvelle manche. On prend normalement les Paco en compte losqu'on résout un calza.</p>
+
+  </div>
 </div>
-<p>Le vainqueur est le dernier joueur à posséder un ou plusieurs dés.</p>
-<div class="subtitle">
-  <img src="assets/images/azteque_logo.png" class="logo">
-  COMMENT JOUER ?
-</div>
-
-
-<h2>Matériel requis :</h2>
-<ul>
-  <li>Un jeu de dés spéciaux, généralement des dés à six faces traditionnels, mais parfois avec des dés spécialement marqués pour ce jeu.</li>
-  <li>Un gobelet opaque par joueur.</li>
-</ul>
-
-<h2>Règles du jeu :</h2>
-<ol>
-  <li>Chaque joueur secoue ses dés dans son gobelet puis les place à l'envers, cachant les dés à la vue des autres joueurs.</li>
-  <li>Le premier joueur déclare un nombre minimum de dés de valeur spécifique qui, selon lui, se trouvent sous les gobelets combinés de tous les joueurs. Par exemple, "trois quatre" signifie qu'il y a au moins trois dés marqués quatre parmi tous les joueurs.</li>
-  <li>Les joueurs se relaient dans le sens des aiguilles d'une montre en augmentant soit la quantité, soit la valeur des dés déclarés. Par exemple, un joueur peut dire "quatre cinq" ou "trois six", et ainsi de suite.</li>
-  <li>Si un joueur ne croit pas la déclaration précédente, il peut crier "dudo", ce qui signifie "je doute". À ce stade, tous les gobelets sont retournés, et si le nombre déclaré est exact, le joueur ayant appelé "dudo" perd un dé. Sinon, le joueur qui a fait la déclaration perd un dé.</li>
-  <li>Le jeu se poursuit jusqu'à ce qu'un joueur perde tous ses dés. Ce joueur est éliminé, et le jeu continue jusqu'à ce qu'il ne reste plus qu'un seul joueur avec des dés.</li>
-</ol>
-
-<p>Il existe de nombreuses variantes et règles optionnelles dans différentes régions et groupes de joueurs. Assurez-vous de clarifier toutes les règles spécifiques avant de commencer une partie de Perudo.</p>
 
 </body>
 </html>

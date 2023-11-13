@@ -7,6 +7,16 @@
   align-items: flex-start;
   margin-left: 25px;
 
+  .col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-gap: 20px;
+  }
+
+  p {
+    font-family: Constantia, sans-serif;
+  }
+
   h1 {
     font-family: Jokerman, sans-serif;
     display: flex;
@@ -41,6 +51,26 @@
       width: 50px;
 
     }
+  }
+
+  h2 {
+    font-family: Jokerman, sans-serif;
+    color: red;
+  }
+
+  h3 {
+    font-family: Constantia, sans-serif;
+    font-weight: bold;
+    font-size: large;
+    color: red;
+  }
+
+  .exemple {
+    color: green;
+  }
+
+  .remarque {
+    font-style: italic;
   }
 
 }
