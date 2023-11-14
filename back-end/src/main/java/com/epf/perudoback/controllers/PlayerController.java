@@ -2,6 +2,7 @@ package com.epf.perudoback.controllers;
 
 import com.epf.perudoback.DTO.PlayerDTO;
 import com.epf.perudoback.DTO.StudentDto;
+import com.epf.perudoback.models.Dice;
 import com.epf.perudoback.models.Player;
 import com.epf.perudoback.models.Student;
 import com.epf.perudoback.services.PlayerService;
@@ -26,11 +27,6 @@ public class PlayerController {
         return playerService.findAll();
     }
 
-    @GetMapping("/game/{nb}")
-    public List<Player> createPlayers(@PathVariable Integer nb){
-        return playerService.createPlayers(nb);
-    }
-
     @GetMapping("/details/{id}")
     public Player getPlayerById(@PathVariable Long id) {
         return playerService.getById(id);
@@ -52,8 +48,33 @@ public class PlayerController {
         playerService.updatePlayer(playerDTO, id);
     }
 
-    @GetMapping("/{_}")
-    public List<Player> playGame(){
-        return playerService.playGame();
+    @GetMapping("/game/{nb}")
+    public List<Player> createPlayers(@PathVariable Integer nb){
+        return playerService.createPlayers(nb);
+    }
+
+    @GetMapping("/game/frequencies")
+    public List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
+        return playerService.diceFrequencies(listOfDiceValues);
+    }
+
+    @GetMapping("/game/computer-predictions")
+    public List<String> computerPredictions(List<Dice> listOfDiceValues, int i){
+        return playerService.computerPrediction(listOfDiceValues, i);
+    }
+
+    @GetMapping("/game/applyRules")
+    public String applyRules(List<List<String>> predictions, List<Integer> countDices){
+        return playerService.applyRules(predictions, countDices);
+    }
+
+    @GetMapping("/game/checkDoubt")
+    public String checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
+        return playerService.checkDoubt(prevPlayerPred, countDices);
+    }
+
+    @GetMapping("/game/playerBet/{betDice}")
+    public String playerBet(@PathVariable String betDice, List<Integer> countDices, List<List<String>> predictions){
+        return playerService.playerBet(betDice, countDices, predictions);
     }
 }

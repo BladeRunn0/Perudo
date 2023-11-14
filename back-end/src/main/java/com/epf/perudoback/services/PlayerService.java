@@ -82,7 +82,7 @@ public class PlayerService {
     }
 
     //Checking dice frequencies
-    private List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
+    public List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
         List<Integer> countDices = new ArrayList<>(Collections.nCopies(6, 0)); // Initialisation de la liste avec des zéros
 
         for (Dice dice : listOfDiceValues) {
@@ -96,7 +96,7 @@ public class PlayerService {
     }
 
     //Creating computers predictions
-    private List<String> computerPrediction(List<Dice> listOfDiceValues, int i){
+    public List<String> computerPrediction(List<Dice> listOfDiceValues, int i){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
         List<String> prediction = new ArrayList<>();
 
@@ -129,7 +129,7 @@ public class PlayerService {
 
     //Applying game rules to predictions (to be called twice to ensure a good application)
     //Only use the returned string on the second call
-    private String applyRules(List<List<String>> predictions, List<Integer> countDices){
+    public String applyRules(List<List<String>> predictions, List<Integer> countDices){
 
         String doubtResult = null;
 
@@ -187,7 +187,7 @@ public class PlayerService {
     }
 
     //Checking result of previous player if a doubt appears
-    private String checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
+    public String checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
 
         switch (prevPlayerPred.get(0)){
 
@@ -227,7 +227,7 @@ public class PlayerService {
     }
 
     //Managing player bets. TODO - Remove Scanner for front
-    private String playerBet(String betDice, List<Integer> countDices, List<List<String>> predictions){
+    public String playerBet(String betDice, List<Integer> countDices, List<List<String>> predictions){
         switch (betDice){
             case "1":
                 System.out.println("How many ?");
