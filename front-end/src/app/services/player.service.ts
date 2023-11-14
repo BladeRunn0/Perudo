@@ -21,6 +21,11 @@ export class PlayerService {
     return this.http.get<Player[]>(this.playerUrl)
   }
 
+  createPlayers(nb: number) {
+    console.log("createPlayers from player.service")
+    return this.http.get<Player[]>(`${this.playerUrl}/${nb}`)
+  }
+
   deletePlayers(player: Player) {
       return this.http.delete(`${this.playerUrl}/${player.id}`)
   }

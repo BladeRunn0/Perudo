@@ -26,7 +26,12 @@ public class PlayerController {
         return playerService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/game/{nb}")
+    public List<Player> createPlayers(@PathVariable Integer nb){
+        return playerService.createPlayers(nb);
+    }
+
+    @GetMapping("/details/{id}")
     public Player getPlayerById(@PathVariable Long id) {
         return playerService.getById(id);
     }

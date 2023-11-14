@@ -70,7 +70,7 @@ public class PlayerService {
     // -------------------- GAME FUNCTIONS -------------------------
 
     //Instantiating players
-    private  List<Player> createPlayers(int nbPlayer){
+    public List<Player> createPlayers(int nbPlayer){
         List<Player> listPlayer = new ArrayList<>();
         for(int i=0;  i<nbPlayer;i++){
             listPlayer.add(new Player(5));
