@@ -5,10 +5,7 @@ import com.epf.perudoback.DTO.PlayerDTO;
 import com.epf.perudoback.DTO.PlayerMapper;
 import com.epf.perudoback.DTO.StudentDto;
 import com.epf.perudoback.DTO.StudentMapper;
-import com.epf.perudoback.models.Dice;
-import com.epf.perudoback.models.DiceValue;
-import com.epf.perudoback.models.Player;
-import com.epf.perudoback.models.Student;
+import com.epf.perudoback.models.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,7 +70,8 @@ public class PlayerService {
     public List<Player> createPlayers(int nbPlayer){
         List<Player> listPlayer = new ArrayList<>();
         for(int i=0;  i<nbPlayer;i++){
-            listPlayer.add(new Player(5));
+            listPlayer.add(new Player("Player_" + i, 5));
+            System.out.println(listPlayer);
         }
         for(int i=0; i<listPlayer.size();i++){
             listPlayer.get(i).rollDice();

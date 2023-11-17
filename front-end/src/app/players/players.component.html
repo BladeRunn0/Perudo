@@ -2,6 +2,13 @@
   <h1>Players</h1>
   <a mat-raised-button color="primary" routerLink="/player-details/new">New</a>
 </div>
+
+<div>
+  <label for="playerNumber">Enter Player Number:</label>
+  <input type="number" id="playerNumber" [(ngModel)]="nb" />
+  <button mat-raised-button color="primary" (click)="createPlayers($event, nb)">Test create players</button>
+</div>
+
 <table class="table table-hover">
   <thead>
   <tr>

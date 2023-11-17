@@ -25,6 +25,8 @@ INSERT INTO student_course (id, student_id, course_id) VALUES (1, 1, 7);
 INSERT INTO players (id, first_name, last_name, active_dice_number) VALUES (1, 'Louis', 'CAROZZO', null);
 INSERT INTO players (id, first_name, last_name, active_dice_number) VALUES (2, 'Florian', 'GUYOT', null);
 INSERT INTO players (id, first_name, last_name, active_dice_number) VALUES (3, 'Clémence', 'DEBADIER', null);
+INSERT INTO players (id, first_name, last_name, active_dice_number) VALUES (4, 'Julien', 'KBOK', null);
+INSERT INTO players (id, first_name, last_name, active_dice_number) VALUES (5, 'Julie', 'PARPIN', null);
 
 INSERT INTO scores (id, score) VALUES (1, 100);
 INSERT INTO player_score (id, player_id, score_id) VALUES (1, 1, 1);

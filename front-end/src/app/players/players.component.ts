@@ -11,8 +11,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class PlayersComponent{
   players: Observable<Player[]>
+  nb: number | undefined;
 
-  constructor(private _route: ActivatedRoute, private playerService: PlayerService, private router: Router,) {
+  constructor(private _route: ActivatedRoute, private playerService: PlayerService, private router: Router) {
     this.players = playerService.findAll()
   }
 
@@ -22,11 +23,16 @@ export class PlayersComponent{
     this.playerService.playGame().subscribe(() => this.router.navigate(["players"]))
   }
 
+  createPlayers(event: any, nb: number | undefined){
+    event.stopPropagation()
+    console.log("createPlayers from player.component")
+    this.players = this.playerService.createPlayers(nb)
+  }
+
   // addPlayer(event: any, player: Player){
   //   event.stopPropagation()
   //   this.playerService.addPlayer(player).subscribe(() => this.router.navigate(["players"]))
   // }
-
   deletePlayer(event: any, player: Player) {
     event.stopPropagation()
     this.playerService.deletePlayers(player).subscribe(() => this.router.navigate(["players"]))
