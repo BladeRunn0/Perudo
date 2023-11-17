@@ -94,35 +94,40 @@ public class PlayerService {
     }
 
     //Creating computers predictions
-    public List<String> computerPrediction(List<Dice> listOfDiceValues, int i){
+    public List<List<String>> computerPrediction(List<Dice> listOfDiceValues){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
-        List<String> prediction = new ArrayList<>();
+        List<List<String>> predictions = new ArrayList<>();
 
-        //Choose dice's face
-        Random randFace = new Random();
+        for(int i = 1; i < listOfDiceValues.size(); i++){
+            List<String> prediction = new ArrayList<>();
 
-        //Choose number
-        if(i == 1){ // First player can't doubt
-            int randIndexFirstPlayer = randFace.nextInt(predict.values().length-1);
+            //Choose dice's face
+            Random randFace = new Random();
 
-            Random randTotalNumber = new Random();
-            int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
+            //Choose number
+            if(i == 1){ // First player can't doubt
+                int randIndexFirstPlayer = randFace.nextInt(predict.values().length-1);
 
-            prediction.add(predict.values()[randIndexFirstPlayer].toString());
-            prediction.add(String.valueOf(randNumber));
-        }else{
-            int randIndex = randFace.nextInt(predict.values().length);
-            if(predict.values()[randIndex] != predict.DOUBT){
                 Random randTotalNumber = new Random();
                 int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
 
-                prediction.add(predict.values()[randIndex].toString());
+                prediction.add(predict.values()[randIndexFirstPlayer].toString());
                 prediction.add(String.valueOf(randNumber));
             }else{
-                prediction.add(predict.values()[randIndex].toString());
+                int randIndex = randFace.nextInt(predict.values().length);
+                if(predict.values()[randIndex] != predict.DOUBT){
+                    Random randTotalNumber = new Random();
+                    int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
+
+                    prediction.add(predict.values()[randIndex].toString());
+                    prediction.add(String.valueOf(randNumber));
+                }else{
+                    prediction.add(predict.values()[randIndex].toString());
+                }
             }
+            predictions.add(prediction);
         }
-        return prediction;
+        return predictions;
     }
 
     //Applying game rules to predictions (to be called twice to ensure a good application)

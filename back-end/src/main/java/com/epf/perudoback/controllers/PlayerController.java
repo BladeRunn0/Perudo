@@ -59,8 +59,8 @@ public class PlayerController {
     }
 
     @GetMapping("/game/computer-predictions")
-    public List<String> computerPredictions(List<Dice> listOfDiceValues, int i){
-        return playerService.computerPrediction(listOfDiceValues, i);
+    public List<List<String>> computerPredictions(List<Dice> listOfDiceValues){
+        return playerService.computerPrediction(listOfDiceValues);
     }
 
     @GetMapping("/game/applyRules")

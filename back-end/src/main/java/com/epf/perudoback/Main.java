@@ -31,36 +31,42 @@ public class Main {
         return countDices;
     }
 
-    private static List<String> computerPrediction(List<Dice> listOfDiceValues, int i){
+    private static List<List<String>> computerPrediction(List<Dice> listOfDiceValues){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
-        List<String> prediction = new ArrayList<>();
 
-        //Choose dice's face
-        Random randFace = new Random();
+        List<List<String>> predictions = new ArrayList<>();
+
+        for(int i = 1; i < listOfDiceValues.size(); i++){
+            List<String> prediction = new ArrayList<>();
+
+            //Choose dice's face
+            Random randFace = new Random();
 
 
-        //Choose number
-        if(i == 1){ // First player can't doubt
-            int randIndexFirstPlayer = randFace.nextInt(predict.values().length-1);
+            //Choose number
+            if(i == 1){ // First player can't doubt
+                int randIndexFirstPlayer = randFace.nextInt(predict.values().length-1);
 
-            Random randTotalNumber = new Random();
-            int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
-
-            prediction.add(predict.values()[randIndexFirstPlayer].toString());
-            prediction.add(String.valueOf(randNumber));
-        }else{
-            int randIndex = randFace.nextInt(predict.values().length);
-            if(predict.values()[randIndex] != predict.DOUBT){
                 Random randTotalNumber = new Random();
                 int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
 
-                prediction.add(predict.values()[randIndex].toString());
+                prediction.add(predict.values()[randIndexFirstPlayer].toString());
                 prediction.add(String.valueOf(randNumber));
             }else{
-                prediction.add(predict.values()[randIndex].toString());
+                int randIndex = randFace.nextInt(predict.values().length);
+                if(predict.values()[randIndex] != predict.DOUBT){
+                    Random randTotalNumber = new Random();
+                    int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
+
+                    prediction.add(predict.values()[randIndex].toString());
+                    prediction.add(String.valueOf(randNumber));
+                }else{
+                    prediction.add(predict.values()[randIndex].toString());
+                }
             }
+            predictions.add(prediction);
         }
-        return prediction;
+        return predictions;
     }
 
     private static String applyRules(List<List<String>> predictions, List<Integer> countDices){
@@ -249,9 +255,10 @@ public class Main {
 
             // Making predictions
             List<List<String>> predictions = new ArrayList<>();
-            for(int i = 1; i<listPlayer.size(); i++){
-                predictions.add(computerPrediction(listOfDiceValues, i));
-            }
+//            for(int i = 1; i<listPlayer.size(); i++){
+//                predictions.add(computerPrediction(listOfDiceValues, i));
+//            }
+            predictions = computerPrediction(listOfDiceValues);
             System.out.println("Les prédictions de base :\n" + predictions);
 
             // Applying rules on computer predictions
