@@ -16,6 +16,12 @@ export class PlayersComponent{
     this.players = playerService.findAll()
   }
 
+  refreshPage(url: string) {
+    this.router.navigateByUrl('/refresh', { skipLocationChange: false }).then(() => {
+      this.router.navigate([url]);
+    });
+  }
+
   playGame(event: any){
     event.stopPropagation()
     console.log("playGame from player.component")
@@ -28,7 +34,8 @@ export class PlayersComponent{
   // }
 
   deletePlayer(event: any, player: Player) {
-    event.stopPropagation()
-    this.playerService.deletePlayers(player).subscribe(() => this.router.navigate(["players"]))
+    event.stopPropagation();
+    this.playerService.deletePlayers(player).subscribe(() => this.router.navigate(["players"], {skipLocationChange: true}));
+    //this.refreshPage("game-screen");
   }
 }
