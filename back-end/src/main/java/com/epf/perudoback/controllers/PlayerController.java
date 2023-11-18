@@ -53,8 +53,9 @@ public class PlayerController {
         return playerService.createPlayers(nb);
     }
 
-    @GetMapping("/game/frequencies")
-    public List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
+    @GetMapping("/game/frequencies/{listOfDiceValues}")
+    public List<Integer> diceFrequencies(@PathVariable String listOfDiceValues){
+        System.out.println(listOfDiceValues);
         return playerService.diceFrequencies(listOfDiceValues);
     }
 

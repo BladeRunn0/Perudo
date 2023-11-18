@@ -3,8 +3,6 @@ package com.epf.perudoback.services;
 import com.epf.perudoback.DAO.PlayerDAO;
 import com.epf.perudoback.DTO.PlayerDTO;
 import com.epf.perudoback.DTO.PlayerMapper;
-import com.epf.perudoback.DTO.StudentDto;
-import com.epf.perudoback.DTO.StudentMapper;
 import com.epf.perudoback.models.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -70,7 +68,7 @@ public class PlayerService {
     public List<Player> createPlayers(int nbPlayer){
         List<Player> listPlayer = new ArrayList<>();
         for(int i=0;  i<nbPlayer;i++){
-            listPlayer.add(new Player("Player_" + i, 5));
+            listPlayer.add(new Player("Player_" + i,"Player_" + i, 5));
             System.out.println(listPlayer);
         }
         for(int i=0; i<listPlayer.size();i++){
@@ -80,15 +78,25 @@ public class PlayerService {
     }
 
     //Checking dice frequencies
-    public List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
+    public List<Integer> diceFrequencies(String listOfDiceValuesString){
+
+        String[] listOfDiceValuesSplit = listOfDiceValuesString.split("&");
+        List<Dice> listOfDiceValues = new ArrayList<>();
+
+        for (int i = 0; i < listOfDiceValuesSplit.length; i++){
+            Dice dice = new Dice();
+            dice.setDiceValue(DiceValue.getFromString(listOfDiceValuesSplit[i]));
+            listOfDiceValues.add(dice);
+        }
+
         List<Integer> countDices = new ArrayList<>(Collections.nCopies(6, 0)); // Initialisation de la liste avec des zéros
 
-        for (Dice dice : listOfDiceValues) {
-            if (dice.getDiceValue() != null) {
-                int value = dice.getDiceValue().ordinal(); // Obtention de l'indice de l'énumération
-                countDices.set(value, countDices.get(value) + 1); // Incrémenter le compteur
-            }
-        }
+//        for (Dice dice : listOfDiceValues) {
+//            if (dice.getDiceValue() != null) {
+//                int value = dice.getDiceValue().ordinal(); // Obtention de l'indice de l'énumération
+//                countDices.set(value, countDices.get(value) + 1); // Incrémenter le compteur
+//            }
+//        }
 
         return countDices;
     }

@@ -228,6 +228,7 @@ public class Main {
         boolean isPlaying = true;
 
         while(isPlaying){
+
             System.out.println("\n---------- NEW ROUND ----------\n");
             System.out.println("Choose between 2 and 6 players (enter 0 to quit game) :\n");
             Scanner scNbPlayer = new Scanner(System.in);
