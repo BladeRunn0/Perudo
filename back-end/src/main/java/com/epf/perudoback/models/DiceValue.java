@@ -41,6 +41,23 @@ public enum DiceValue implements Serializable {
         }
     }
 
+    public static DiceValue getFromString(String n) {
+        switch (n) {
+            case "PACO":
+                return DiceValue.PACO;
+            case "DEUX":
+                return DiceValue.DEUX;
+            case "TROIS":
+                return DiceValue.TROIS;
+            case "QUATRE":
+                return DiceValue.QUATRE;
+            case "CINQ":
+                return DiceValue.CINQ;
+            default:
+                return DiceValue.SIX;
+        }
+    }
+
     public static int getStringDiceValue(String face) {
         switch (face) {
             case "PACO":

@@ -43,7 +43,8 @@ public class Player {
         this.activeDiceNumber = activeDiceNumber;
     }
 
-    public Player(String lastName, int activeDiceNumber) {
+    public Player(String firstName, String lastName, int activeDiceNumber) {
+        this.firstName = firstName;
         this.dices = new ArrayList<Dice>();
         this.activeDiceNumber = activeDiceNumber;
         this.lastName = lastName;

@@ -19,12 +19,14 @@ export class PlayersComponent{
   createPlayers(event: any, nb: number | undefined){
     event.stopPropagation()
     this.players = this.playerService.createPlayers(nb)
+    /////////////////////// GETTING THE DATA FOR FRONT-END LOGIC
     let test_players = this.playerService.createPlayers(nb)
     test_players.forEach(element => {
       element.forEach(player => {
         console.log(player.dices)
       })
     });
+    ////////////////////////////////
   }
   deletePlayer(event: any, player: Player) {
     event.stopPropagation();
