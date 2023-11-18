@@ -6,13 +6,6 @@
     align-items: center;
   }
 
-  p {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 1.3em;
-    font-family: Arial, sans-serif;
-  }
-
   .left {
     width: 50%;
     height: 100%;
@@ -28,26 +21,33 @@
       margin: 30px 0;
     }
 
+    p {
+      font-family: Constantia, sans-serif;
+      text-align: center;
+    }
+
     .sun {
       width: 90px;
       margin-left: 35px;
     }
 
-    .card {
-      border: none;
-      display: flex;
-      align-items: baseline;
-
-      .card-text {
-        font-family: "Dancing Script", sans-serif;
-        font-size: x-large;
-        margin-top: 0
-      }
-    }
-
     .perudo_title {
       width: 50%;
     }
+
+    .rules-button {
+      width: fit-content;
+      height: fit-content;
+      padding: 10px;
+      background-color: #ffa826;
+      border-radius: 10px;
+      font-size: 25px;
+    }
+
+    .rules-button:hover {
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 30px 0 rgba(0,0,0,0.19);
+    }
+
   }
 
   .right {
@@ -65,7 +65,7 @@
       width: fit-content;
       padding: 20px;
       margin-top: 30px;
-      background-color: #ff2f23;
+      background-color: #ffa826;
       border-radius: 10px;
       font-size: 50px;
     }
