@@ -1,5 +1,8 @@
 
 export interface DiceModel {
-  id: bigint;
-  diceValue: number;
+  diceValue: DiceValues;
+}
+
+enum DiceValues {
+  PACO, DEUX, TROIS, QUATRE, CINQ, SIX
 }

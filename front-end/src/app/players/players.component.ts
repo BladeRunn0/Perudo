@@ -16,32 +16,18 @@ export class PlayersComponent{
   constructor(private _route: ActivatedRoute, private playerService: PlayerService, private router: Router) {
     this.players = playerService.findAll()
   }
-
-  refreshPage(url: string) {
-    this.router.navigateByUrl('/refresh', { skipLocationChange: false }).then(() => {
-      this.router.navigate([url]);
-    });
-  }
-
-  playGame(event: any){
-    event.stopPropagation()
-    console.log("playGame from player.component")
-    this.playerService.playGame().subscribe(() => this.router.navigate(["players"]))
-  }
-
   createPlayers(event: any, nb: number | undefined){
     event.stopPropagation()
-    console.log("createPlayers from player.component")
     this.players = this.playerService.createPlayers(nb)
+    let test_players = this.playerService.createPlayers(nb)
+    test_players.forEach(element => {
+      element.forEach(player => {
+        console.log(player.dices)
+      })
+    });
   }
-
-  // addPlayer(event: any, player: Player){
-  //   event.stopPropagation()
-  //   this.playerService.addPlayer(player).subscribe(() => this.router.navigate(["players"]))
-  // }
   deletePlayer(event: any, player: Player) {
     event.stopPropagation();
     this.playerService.deletePlayers(player).subscribe(() => this.router.navigate(["players"], {skipLocationChange: true}));
-    //this.refreshPage("game-screen");
   }
 }

@@ -16,11 +16,6 @@ export class PlayerService {
     return this.http.get<Player[]>(this.playerUrl)
   }
 
-  playGame() {
-    console.log("playGame from player.service")
-    return this.http.get<Player[]>(this.playerUrl)
-  }
-
   createPlayers(nb: number | undefined): Observable<Player[]> {
     console.log("createPlayers from player.service")
     return this.http.get<Player[]>(`${this.playerUrl}/game/${nb}`)

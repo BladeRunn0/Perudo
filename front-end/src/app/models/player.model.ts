@@ -5,6 +5,6 @@ export interface Player {
   firstName: String ;
   lastName: String ;
   score_id: number ;
-  active_dice_number: number ;
+  activeDiceNumber: number ;
   dices: DiceModel[] ;
 }
