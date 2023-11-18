@@ -1,6 +1,14 @@
 <div class="d-flex align-items-center">
   <h1>Players</h1>
+  <a mat-raised-button color="primary" routerLink="/player-details/new">New</a>
 </div>
+
+<div>
+  <label for="playerNumber">Enter Player Number:</label>
+  <input type="number" id="playerNumber" [(ngModel)]="nb" />
+  <button mat-raised-button color="primary" (click)="createPlayers($event, nb)">Test create players</button>
+</div>
+
 <table class="table table-hover">
   <thead>
   <tr>
@@ -9,9 +17,14 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let player of (players | async)">
+  <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">
     <td>{{ player.firstName }}</td>
     <td>{{ player.lastName }}</td>
+    <td>
+      <button mat-icon-button color="warn" (click)="deletePlayer($event, player)" routerLink="/game-screen" >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>

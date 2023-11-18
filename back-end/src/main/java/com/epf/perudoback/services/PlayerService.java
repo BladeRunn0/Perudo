@@ -5,10 +5,7 @@ import com.epf.perudoback.DTO.PlayerDTO;
 import com.epf.perudoback.DTO.PlayerMapper;
 import com.epf.perudoback.DTO.StudentDto;
 import com.epf.perudoback.DTO.StudentMapper;
-import com.epf.perudoback.models.Dice;
-import com.epf.perudoback.models.DiceValue;
-import com.epf.perudoback.models.Player;
-import com.epf.perudoback.models.Student;
+import com.epf.perudoback.models.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,10 +67,11 @@ public class PlayerService {
     // -------------------- GAME FUNCTIONS -------------------------
 
     //Instantiating players
-    private  List<Player> createPlayers(int nbPlayer){
+    public List<Player> createPlayers(int nbPlayer){
         List<Player> listPlayer = new ArrayList<>();
         for(int i=0;  i<nbPlayer;i++){
-            listPlayer.add(new Player(5));
+            listPlayer.add(new Player("Player_" + i, 5));
+            System.out.println(listPlayer);
         }
         for(int i=0; i<listPlayer.size();i++){
             listPlayer.get(i).rollDice();
@@ -82,7 +80,7 @@ public class PlayerService {
     }
 
     //Checking dice frequencies
-    private List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
+    public List<Integer> diceFrequencies(List<Dice> listOfDiceValues){
         List<Integer> countDices = new ArrayList<>(Collections.nCopies(6, 0)); // Initialisation de la liste avec des zéros
 
         for (Dice dice : listOfDiceValues) {
@@ -96,40 +94,45 @@ public class PlayerService {
     }
 
     //Creating computers predictions
-    private List<String> computerPrediction(List<Dice> listOfDiceValues, int i){
+    public List<List<String>> computerPrediction(List<Dice> listOfDiceValues){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
-        List<String> prediction = new ArrayList<>();
+        List<List<String>> predictions = new ArrayList<>();
 
-        //Choose dice's face
-        Random randFace = new Random();
+        for(int i = 1; i < listOfDiceValues.size(); i++){
+            List<String> prediction = new ArrayList<>();
 
-        //Choose number
-        if(i == 1){ // First player can't doubt
-            int randIndexFirstPlayer = randFace.nextInt(predict.values().length-1);
+            //Choose dice's face
+            Random randFace = new Random();
 
-            Random randTotalNumber = new Random();
-            int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
+            //Choose number
+            if(i == 1){ // First player can't doubt
+                int randIndexFirstPlayer = randFace.nextInt(predict.values().length-1);
 
-            prediction.add(predict.values()[randIndexFirstPlayer].toString());
-            prediction.add(String.valueOf(randNumber));
-        }else{
-            int randIndex = randFace.nextInt(predict.values().length);
-            if(predict.values()[randIndex] != predict.DOUBT){
                 Random randTotalNumber = new Random();
                 int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
 
-                prediction.add(predict.values()[randIndex].toString());
+                prediction.add(predict.values()[randIndexFirstPlayer].toString());
                 prediction.add(String.valueOf(randNumber));
             }else{
-                prediction.add(predict.values()[randIndex].toString());
+                int randIndex = randFace.nextInt(predict.values().length);
+                if(predict.values()[randIndex] != predict.DOUBT){
+                    Random randTotalNumber = new Random();
+                    int randNumber = randTotalNumber.nextInt(1,listOfDiceValues.size());
+
+                    prediction.add(predict.values()[randIndex].toString());
+                    prediction.add(String.valueOf(randNumber));
+                }else{
+                    prediction.add(predict.values()[randIndex].toString());
+                }
             }
+            predictions.add(prediction);
         }
-        return prediction;
+        return predictions;
     }
 
     //Applying game rules to predictions (to be called twice to ensure a good application)
     //Only use the returned string on the second call
-    private String applyRules(List<List<String>> predictions, List<Integer> countDices){
+    public String applyRules(List<List<String>> predictions, List<Integer> countDices){
 
         String doubtResult = null;
 
@@ -187,7 +190,7 @@ public class PlayerService {
     }
 
     //Checking result of previous player if a doubt appears
-    private String checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
+    public String checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
 
         switch (prevPlayerPred.get(0)){
 
@@ -227,7 +230,7 @@ public class PlayerService {
     }
 
     //Managing player bets. TODO - Remove Scanner for front
-    private String playerBet(String betDice, List<Integer> countDices, List<List<String>> predictions){
+    public String playerBet(String betDice, List<Integer> countDices, List<List<String>> predictions){
         switch (betDice){
             case "1":
                 System.out.println("How many ?");

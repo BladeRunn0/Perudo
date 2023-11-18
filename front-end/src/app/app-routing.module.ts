@@ -15,6 +15,7 @@ import {ScoresComponent} from "./scores/scores.component";
 import {ScoresResolver} from "./scores/scores.resolver";
 import {RulesComponent} from "./rules/rules.component";
 import {GameScreenComponent} from "./game-screen/game-screen.component";
+import {PlayerDetailsComponent} from "./players/player-details/player-details.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -30,6 +31,13 @@ const routes: Routes = [
     component: StudentDetailsComponent,
     resolve: {
       student: StudentDetailsResolver,
+    },
+  },
+  {
+    path: "player-details/:id",
+    component: PlayerDetailsComponent,
+    resolve: {
+      student: PlayerDetailsComponent,
     },
   },
   {

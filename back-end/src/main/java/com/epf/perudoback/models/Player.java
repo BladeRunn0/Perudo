@@ -43,6 +43,12 @@ public class Player {
         this.activeDiceNumber = activeDiceNumber;
     }
 
+    public Player(String lastName, int activeDiceNumber) {
+        this.dices = new ArrayList<Dice>();
+        this.activeDiceNumber = activeDiceNumber;
+        this.lastName = lastName;
+    }
+
     public static class Builder {
         private Long id;
         private String firstName;
