@@ -67,8 +67,8 @@ public class PlayerService {
     //Instantiating players
     public List<Player> createPlayers(int nbPlayer){
         List<Player> listPlayer = new ArrayList<>();
-        for(int i=0;  i<nbPlayer;i++){
-            listPlayer.add(new Player("Player_" + i,"Player_" + i, 5));
+        for(int i=1;  i<=nbPlayer;i++){
+            listPlayer.add(new Player((long) i, "Player_" + i,"Player_" + i, 5));
             System.out.println(listPlayer);
         }
         for(int i=0; i<listPlayer.size();i++){
@@ -91,12 +91,12 @@ public class PlayerService {
 
         List<Integer> countDices = new ArrayList<>(Collections.nCopies(6, 0)); // Initialisation de la liste avec des zéros
 
-//        for (Dice dice : listOfDiceValues) {
-//            if (dice.getDiceValue() != null) {
-//                int value = dice.getDiceValue().ordinal(); // Obtention de l'indice de l'énumération
-//                countDices.set(value, countDices.get(value) + 1); // Incrémenter le compteur
-//            }
-//        }
+        for (Dice dice : listOfDiceValues) {
+            if (dice.getDiceValue() != null) {
+                int value = dice.getDiceValue().ordinal(); // Obtention de l'indice de l'énumération
+                countDices.set(value, countDices.get(value) + 1); // Incrémenter le compteur
+            }
+        }
 
         return countDices;
     }
@@ -294,12 +294,5 @@ public class PlayerService {
             default:
                 return "Quitting";
         }
-    }
-
-
-    //Test function for front
-    public List<Player> playGame(){
-        List<Player> listPlayer = createPlayers(5); //nb en dur de joueurs pour tester le front
-        return listPlayer;
     }
 }
