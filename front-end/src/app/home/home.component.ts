@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { NgForm } from "@angular/forms";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "epf-home",
@@ -6,11 +8,34 @@ import { Component, OnInit } from "@angular/core"
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('playForm') playForm!: NgForm;
+  @ViewChild('playerName') playerName!: NgForm;
+  @ViewChild('numberOfComputers') numberOfComputers!: NgForm;
+  @ViewChild('playButton') playButton!: NgForm;
+  playerNameValue: string = '';
 
-  constructor() {
+
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
   }
+
+  onSubmit() {
+    this.router.navigate(['/game_screen']);
+  }
+
+  validatePlayerName() {
+    const playerNameInput = document.getElementById('playerName');
+    const errorMessage = document.getElementById('errorMessage');
+
+    if (playerNameInput?.textContent?.trim() === '') {
+      return false;
+    } else {
+      // Si le nom est rempli, effectuez l'action associée au clic du bouton
+      return true;
+    }
+  }
+
 
 }

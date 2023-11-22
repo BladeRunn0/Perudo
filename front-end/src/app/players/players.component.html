@@ -14,12 +14,14 @@
   <tr>
     <th scope="col">First Name</th>
     <th scope="col">Last Name</th>
+    <th scope="col">Dice values</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">
     <td>{{ player.firstName }}</td>
     <td>{{ player.lastName }}</td>
+    <td>{{ player.active_dice_number }}</td>
     <td>
       <button mat-icon-button color="warn" (click)="deletePlayer($event, player)">
         <mat-icon>delete</mat-icon>

@@ -10,21 +10,30 @@
     <button class="rules-button" mat-raised-button routerLink="rules" routerLinkActive="active">
       Consulter les règles
     </button>
-    <p>
-      Avant de jouer, choisissez un nombre d'ordinateurs avec lesquels jouer :
-      <select id="nb_players" name="nb_players">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </p>
+
+    <form #playForm="ngForm" (ngSubmit)="onSubmit()">
+      <p>
+        Pour jouer, entrez un nom :
+        <input #playerName="ngModel" type="text" id="playerName" name="playerName" [(ngModel)]="playerNameValue" required>
+        <br/><br/>
+        Choisissez un nombre de joueurs avec lesquels jouer :
+        <select #numberOfComputers id="nb_players" name="nb_players">
+          <option value="1">1 ordinateur</option>
+          <option value="2">2 ordinateurs</option>
+          <option value="3">3 ordinateurs</option>
+          <option value="4">4 ordinateurs</option>
+          <option value="5">5 ordinateurs</option>
+        </select>
+        <br/><br/>
+        <button #playButton class="play-button" name="play-button" type="submit" [disabled]="!playForm.valid">Jouer</button>
+      </p>
+      <div *ngIf="playForm.controls['playerName'].invalid && (playForm.controls['playerName'].dirty || playForm.controls['playerName'].touched)">
+        <p class="errorMessage">Le nom est requis pour jouer.</p>
+      </div>
+    </form>
   </div>
   <div class="right">
     <img src="assets/images/parrot_dancing.jpeg"/>
-    <button class="play-button" mat-raised-button routerLink="game_screen" routerLinkActive="active">
-      Jouer
-    </button>
   </div>
 </div>
+
