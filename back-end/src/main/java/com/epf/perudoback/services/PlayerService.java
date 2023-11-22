@@ -80,14 +80,7 @@ public class PlayerService {
     //Checking dice frequencies
     public List<Integer> diceFrequencies(String listOfDiceValuesString){
 
-        String[] listOfDiceValuesSplit = listOfDiceValuesString.split("&");
-        List<Dice> listOfDiceValues = new ArrayList<>();
-
-        for (int i = 0; i < listOfDiceValuesSplit.length; i++){
-            Dice dice = new Dice();
-            dice.setDiceValue(DiceValue.getFromString(listOfDiceValuesSplit[i]));
-            listOfDiceValues.add(dice);
-        }
+        List<Dice> listOfDiceValues = getDice(listOfDiceValuesString);
 
         List<Integer> countDices = new ArrayList<>(Collections.nCopies(6, 0)); // Initialisation de la liste avec des zéros
 
@@ -101,10 +94,23 @@ public class PlayerService {
         return countDices;
     }
 
+    private static List<Dice> getDice(String listOfDiceValuesString) {
+        String[] listOfDiceValuesSplit = listOfDiceValuesString.split("&");
+        List<Dice> listOfDiceValues = new ArrayList<>();
+
+        for (int i = 0; i < listOfDiceValuesSplit.length; i++){
+            Dice dice = new Dice();
+            dice.setDiceValue(DiceValue.getFromString(listOfDiceValuesSplit[i]));
+            listOfDiceValues.add(dice);
+        }
+        return listOfDiceValues;
+    }
+
     //Creating computers predictions
-    public List<List<String>> computerPrediction(List<Dice> listOfDiceValues){
+    public List<List<String>> computerPrediction(String listOfDiceValuesString){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
         List<List<String>> predictions = new ArrayList<>();
+        List<Dice> listOfDiceValues = getDice(listOfDiceValuesString);
 
         for(int i = 1; i < listOfDiceValues.size(); i++){
             List<String> prediction = new ArrayList<>();

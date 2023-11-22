@@ -25,6 +25,9 @@ export class PlayerService {
       return this.http.delete(`${this.playerUrl}/${player.id}`)
   }
 
+  computerPrediction(listOfDiceValues: String): Observable<String[][]> {
+    return this.http.get<String[][]>(`${this.playerUrl}/game/computer-predictions/${listOfDiceValues}`)
+  }
   addPlayer(player: Player) {
     return this.http.post(this.playerUrl, player)
   }

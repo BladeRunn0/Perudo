@@ -19,7 +19,6 @@ import { PlayersComponent } from './players/players.component';
 import { ScoresComponent } from './scores/scores.component';
 import { RulesComponent } from './rules/rules.component';
 import { GameScreenComponent } from './game-screen/game-screen.component';
-import { PlayerDetailsComponent } from './players/player-details/player-details.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,6 @@ import { PlayerDetailsComponent } from './players/player-details/player-details.
     ScoresComponent,
     RulesComponent,
     GameScreenComponent,
-    PlayerDetailsComponent,
   ],
   imports: [
     BrowserModule,

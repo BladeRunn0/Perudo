@@ -9,6 +9,12 @@
   <button mat-raised-button color="primary" (click)="createPlayers($event, nb)">Test create players</button>
 </div>
 
+<button (click)="computerPrediction($event)">Compute Prediction</button>
+
+<div *ngIf="computerPredictionResult">
+  <p>Test prediction API: {{ computerPredictionResult | json }}</p>
+</div>
+
 <table class="table table-hover">
   <thead>
   <tr>
