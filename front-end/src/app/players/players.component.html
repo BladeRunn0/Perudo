@@ -26,7 +26,6 @@
   </thead>
   <tbody>
   <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">
-    <td>{{ player.firstName }}</td>
     <td>{{ player.lastName }}</td>
     <li *ngFor="let dice of player.dices">{{ dice.diceValue }}</li>
     <td>{{ player.activeDiceNumber.valueOf() }}</td>
