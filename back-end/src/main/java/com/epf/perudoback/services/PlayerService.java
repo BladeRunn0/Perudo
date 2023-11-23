@@ -4,6 +4,7 @@ import com.epf.perudoback.DAO.PlayerDAO;
 import com.epf.perudoback.DTO.PlayerDTO;
 import com.epf.perudoback.DTO.PlayerMapper;
 import com.epf.perudoback.models.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -243,62 +244,83 @@ public class PlayerService {
         }
     }
 
-    //Managing player bets. TODO - Remove Scanner for front
-    public String playerBet(String betDice, List<Integer> countDices, List<List<String>> predictions){
-        switch (betDice){
-            case "1":
-                System.out.println("How many ?");
-                String bet = new Scanner(System.in).next();
-                if(bet.equals(countDices.get(0).toString())){
+    public String playerBet(String betDiceString, String listOfDiceValues, String predictionsJSON) throws JsonProcessingException {
+        List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
+        List<List<String>> predictions = new ArrayList<>();
+
+        for (int i = 0; i < predictionsString2.size(); i++){
+            predictions.add(Arrays.stream(predictionsString2.get(i).split("&")).toList());
+        }
+
+        String [] betDice = betDiceString.split("&");
+
+
+        //List<List<String>> predictions = toListList(predictions);
+
+        List<Integer> countDices = diceFrequencies(listOfDiceValues);
+
+
+        switch (betDice[0]){
+            case "PACO":
+                if(betDice[1].equals(countDices.get(0).toString())){
                     return "Good job !";
                 }else{
                     return "Too bad !";
                 }
-            case "2":
-                System.out.println("How many ?");
-                String bet2 = new Scanner(System.in).next();
-                if(bet2.equals(countDices.get(1).toString())){
+            case "DEUX":
+                if(betDice[1].equals(countDices.get(1).toString())){
                     return "Good job !";
                 }else{
                     return "Too bad !";
                 }
-            case "3":
-                System.out.println("How many ?");
-                String bet3 = new Scanner(System.in).next();
-                if(bet3.equals(countDices.get(2).toString())){
+            case "TROIS":
+                if(betDice[1].equals(countDices.get(2).toString())){
                     return "Good job !";
                 }else{
                     return "Too bad !";
                 }
-            case "4":
-                System.out.println("How many ?");
-                String bet4 = new Scanner(System.in).next();
-                if(bet4.equals(countDices.get(3).toString())){
+            case "QUATRE":
+                if(betDice[1].equals(countDices.get(3).toString())){
                     return "Good job !";
                 }else{
                     return "Too bad !";
                 }
-            case "5":
-                System.out.println("How many ?");
-                String bet5 = new Scanner(System.in).next();
-                if(bet5.equals(countDices.get(4).toString())){
+            case "CINQ":
+                if(betDice[1].equals(countDices.get(4).toString())){
                     return "Good job !";
                 }else{
                     return "Too bad !";
                 }
-            case "6":
-                System.out.println("How many ?");
-                String bet6 = new Scanner(System.in).next();
-                if(bet6.equals(countDices.get(5).toString())){
+            case "SIX":
+                if(betDice[1].equals(countDices.get(5).toString())){
                     return "Good job !";
                 }else{
                     return "Too bad !";
                 }
             case "7":
-                String doubtResult = checkDoubt(predictions.get(predictions.size()-1), countDices);
-                return doubtResult;
+                return checkDoubt(predictions.get(predictions.size()-1), countDices);
             default:
                 return "Quitting";
         }
+    }
+
+    private static List<Integer> getDiceValues(List<Dice> countDicesDice) {
+        List<Integer> countDices = null;
+
+        for (int i = 0; i < countDicesDice.size(); i++){
+            int diceValue = countDicesDice.get(i).getDiceValue().ordinal();
+            countDices.add(diceValue);
+        }
+        return countDices;
+    }
+
+    private static List<List<String>> toListList(String[][] predictionsString) {
+        List<List<String>> predictions = new ArrayList<>();
+
+        for (String[] innerArray : predictionsString) {
+            List<String> innerList = new ArrayList<>(Arrays.asList(innerArray));
+            predictions.add(innerList);
+        }
+        return predictions;
     }
 }

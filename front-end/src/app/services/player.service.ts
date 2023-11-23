@@ -25,14 +25,13 @@ export class PlayerService {
       return this.http.delete(`${this.playerUrl}/${player.id}`)
   }
 
-  computerPrediction(listOfDiceValues: String): Observable<String[][]> {
-    return this.http.get<String[][]>(`${this.playerUrl}/game/computer-predictions/${listOfDiceValues}`)
-  }
-  addPlayer(player: Player) {
-    return this.http.post(this.playerUrl, player)
+  computerPrediction(listOfDiceValues: String): Observable<string[][]> {
+    return this.http.get<string[][]>(`${this.playerUrl}/game/computer-predictions/${listOfDiceValues}`)
   }
 
-  findById(id: number) {
-    return this.http.get(`${this.playerUrl}/${id}`)
+  playerBet(betDice: string[], countDices: string, predictions: string[][]):  Observable<String>{
+    const betDiceString = betDice.join('&');
+    const predictionsString = JSON.stringify(predictions); //TODO put the same format as back-end
+    return this.http.get<String>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${predictionsString}`)
   }
 }

@@ -7,6 +7,7 @@ import com.epf.perudoback.models.Player;
 import com.epf.perudoback.models.Student;
 import com.epf.perudoback.services.PlayerService;
 import com.epf.perudoback.services.StudentService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,8 +75,8 @@ public class PlayerController {
         return playerService.checkDoubt(prevPlayerPred, countDices);
     }
 
-    @GetMapping("/game/playerBet/{betDice}")
-    public String playerBet(@PathVariable String betDice, List<Integer> countDices, List<List<String>> predictions){
-        return playerService.playerBet(betDice, countDices, predictions);
+    @GetMapping("/game/playerBet/{betDice}/{listOfDiceValues}/{predictions}")
+    public String playerBet(@PathVariable String betDice, @PathVariable String listOfDiceValues, @PathVariable String predictions) throws JsonProcessingException {
+        return playerService.playerBet(betDice, listOfDiceValues, predictions);
     }
 }
