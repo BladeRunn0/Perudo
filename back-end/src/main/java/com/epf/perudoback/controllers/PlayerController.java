@@ -9,6 +9,7 @@ import com.epf.perudoback.services.PlayerService;
 import com.epf.perudoback.services.StudentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -76,7 +77,7 @@ public class PlayerController {
     }
 
     @GetMapping("/game/playerBet/{betDice}/{listOfDiceValues}/{predictions}")
-    public String playerBet(@PathVariable String betDice, @PathVariable String listOfDiceValues, @PathVariable String predictions) {
+    public List<String> playerBet(@PathVariable String betDice, @PathVariable String listOfDiceValues, @PathVariable String predictions) {
         return playerService.playerBet(betDice, listOfDiceValues, predictions);
     }
 }

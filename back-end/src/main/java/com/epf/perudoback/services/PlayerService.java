@@ -244,9 +244,10 @@ public class PlayerService {
         }
     }
 
-    public String playerBet(String betDiceString, String listOfDiceValues, String predictionsJSON) {
+    public List<String> playerBet(String betDiceString, String listOfDiceValues, String predictionsJSON) {
         List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
         List<List<String>> predictions = new ArrayList<>();
+        List<String> returnString = new ArrayList<>();
 
         for (int i = 0; i < predictionsString2.size(); i++){
             predictions.add(Arrays.stream(predictionsString2.get(i).split("&")).toList());
@@ -259,44 +260,58 @@ public class PlayerService {
         switch (betDice[0]){
             case "PACO":
                 if(betDice[1].equals(countDices.get(0).toString())){
-                    return "Good job !";
+                    returnString.add("Good job !");
+                    return returnString;
                 }else{
-                    return "Too bad !";
+                    returnString.add("Too bad !");
+                    return returnString;
                 }
             case "DEUX":
                 if(betDice[1].equals(countDices.get(1).toString())){
-                    return "Good job !";
+                    returnString.add("Good job !");
+                    return returnString;
                 }else{
-                    return "Too bad !";
+                    returnString.add("Too bad !");
+                    return returnString;
                 }
             case "TROIS":
                 if(betDice[1].equals(countDices.get(2).toString())){
-                    return "Good job !";
+                    returnString.add("Good job !");
+                    return returnString;
                 }else{
-                    return "Too bad !";
+                    returnString.add("Too bad !");
+                    return returnString;
                 }
             case "QUATRE":
                 if(betDice[1].equals(countDices.get(3).toString())){
-                    return "Good job !";
+                    returnString.add("Good job !");
+                    return returnString;
                 }else{
-                    return "Too bad !";
+                    returnString.add("Too bad !");
+                    return returnString;
                 }
             case "CINQ":
                 if(betDice[1].equals(countDices.get(4).toString())){
-                    return "Good job !";
+                    returnString.add("Good job !");
+                    return returnString;
                 }else{
-                    return "Too bad !";
+                    returnString.add("Too bad !");
+                    return returnString;
                 }
             case "SIX":
                 if(betDice[1].equals(countDices.get(5).toString())){
-                    return "Good job !";
+                    returnString.add("Good job !");
+                    return returnString;
                 }else{
-                    return "Too bad !";
+                    returnString.add("Too bad !");
+                    return returnString;
                 }
-            case "7":
-                return checkDoubt(predictions.get(predictions.size()-1), countDices);
+            case "DOUBT":
+                returnString.add(checkDoubt(predictions.get(predictions.size()-1), countDices));
+                return returnString;
             default:
-                return "Quitting";
+                returnString.add("Quitting");
+                return returnString;
         }
     }
 
