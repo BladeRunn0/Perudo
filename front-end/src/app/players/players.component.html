@@ -15,6 +15,16 @@
   <p>Test prediction API: {{ computerPredictionResult | json }}</p>
 </div>
 
+<label for="diceValue">Enter the value of the dice:</label>
+<input type="text" id="diceValue" [(ngModel)]="bet[0]" placeholder="e.g., CINQ">
+
+<label for="betNumber">Enter the number you're betting on:</label>
+<input type="number" id="betNumber" [(ngModel)]="bet[1]" placeholder="e.g., 3">
+
+<button (click)="playerBet($event)">Submit Bet</button>
+
+
+
 <table class="table table-hover">
   <thead>
   <tr>

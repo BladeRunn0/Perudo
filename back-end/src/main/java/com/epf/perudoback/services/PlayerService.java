@@ -244,7 +244,7 @@ public class PlayerService {
         }
     }
 
-    public String playerBet(String betDiceString, String listOfDiceValues, String predictionsJSON) throws JsonProcessingException {
+    public String playerBet(String betDiceString, String listOfDiceValues, String predictionsJSON) {
         List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
         List<List<String>> predictions = new ArrayList<>();
 

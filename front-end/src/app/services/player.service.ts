@@ -29,9 +29,26 @@ export class PlayerService {
     return this.http.get<string[][]>(`${this.playerUrl}/game/computer-predictions/${listOfDiceValues}`)
   }
 
-  playerBet(betDice: string[], countDices: string, predictions: string[][]):  Observable<String>{
+  playerBet(betDice: string[], countDices: string, computerPredictionResult: string[][]):  Observable<String>{
     const betDiceString = betDice.join('&');
-    const predictionsString = JSON.stringify(predictions); //TODO put the same format as back-end
-    return this.http.get<String>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${predictionsString}`)
+    var serializedPrediction: string = "";
+    for (var i = 0; i<computerPredictionResult.length; i++){
+      for (let j = 0; j<computerPredictionResult[i].length; j++){
+        if (computerPredictionResult[i][j] == "DOUBT"){
+          serializedPrediction += "DOUBT"
+          break;
+        }
+        else if (j == 0){
+          serializedPrediction += computerPredictionResult[i][j] + "&"
+        }
+        else {
+          serializedPrediction += computerPredictionResult[i][j]
+        }
+      }
+      serializedPrediction += "-"
+    }
+    serializedPrediction = serializedPrediction.slice(0, -1)
+    let test = this.http.get<String>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
+    return this.http.get<String>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
   }
 }

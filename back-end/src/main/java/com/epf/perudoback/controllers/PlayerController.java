@@ -76,7 +76,7 @@ public class PlayerController {
     }
 
     @GetMapping("/game/playerBet/{betDice}/{listOfDiceValues}/{predictions}")
-    public String playerBet(@PathVariable String betDice, @PathVariable String listOfDiceValues, @PathVariable String predictions) throws JsonProcessingException {
+    public String playerBet(@PathVariable String betDice, @PathVariable String listOfDiceValues, @PathVariable String predictions) {
         return playerService.playerBet(betDice, listOfDiceValues, predictions);
     }
 }

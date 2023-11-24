@@ -56,6 +56,7 @@ export class PlayersComponent {
     }).then(() =>
       this.playerService.computerPrediction(this.listOfDiceValues.slice(0, -1)).subscribe(result => {
         this.computerPredictionResult = result;
+        console.log(this.computerPredictionResult)
     })
     );
   }
