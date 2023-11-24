@@ -11,9 +11,7 @@
 
 <button (click)="computerPrediction($event)">Compute Prediction</button>
 
-<div *ngIf="computerPredictionResult">
-  <p>Test prediction API: {{ computerPredictionResult | json }}</p>
-</div>
+<p>Test prediction API: {{ computerPredictionResult | json }}</p>
 
 <label for="diceValue">Enter the value of the dice:</label>
 <input type="text" id="diceValue" [(ngModel)]="bet[0]" placeholder="e.g., CINQ">
@@ -23,7 +21,9 @@
 
 <button (click)="playerBet($event)">Submit Bet</button>
 
-
+<div *ngIf="result">
+  <p>Result: {{ result }}</p>
+</div>
 
 <table class="table table-hover">
   <thead>

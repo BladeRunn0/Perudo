@@ -253,10 +253,6 @@ public class PlayerService {
         }
 
         String [] betDice = betDiceString.split("&");
-
-
-        //List<List<String>> predictions = toListList(predictions);
-
         List<Integer> countDices = diceFrequencies(listOfDiceValues);
 
 

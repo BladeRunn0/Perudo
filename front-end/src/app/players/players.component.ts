@@ -14,9 +14,9 @@ export class PlayersComponent {
   players: Observable<Player[]>
   nb: number | undefined;
   computerPredictionResult: string[][] = [[""]];
-  playerWin: Observable<String> | undefined;
   listOfDiceValues = "";
   bet: string[] = ["",""];
+  result: string = "";
 
   constructor(private _route: ActivatedRoute, private playerService: PlayerService, private router: Router) {
     this.players = playerService.findAll()
@@ -42,7 +42,10 @@ export class PlayersComponent {
 
   playerBet(event: any){
     event.stopPropagation();
-    this.playerWin = this.playerService.playerBet(this.bet, this.listOfDiceValues, this.computerPredictionResult)
+    this.playerService.playerBet(this.bet, this.listOfDiceValues, this.computerPredictionResult).subscribe(result => {
+      this.result = result;
+      console.log(this.result)
+    })
   }
 
   computerPrediction(event: any) {

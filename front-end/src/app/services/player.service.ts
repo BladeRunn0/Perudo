@@ -29,7 +29,7 @@ export class PlayerService {
     return this.http.get<string[][]>(`${this.playerUrl}/game/computer-predictions/${listOfDiceValues}`)
   }
 
-  playerBet(betDice: string[], countDices: string, computerPredictionResult: string[][]):  Observable<String>{
+  playerBet(betDice: string[], countDices: string, computerPredictionResult: string[][]):  Observable<string>{
     const betDiceString = betDice.join('&');
     var serializedPrediction: string = "";
     for (var i = 0; i<computerPredictionResult.length; i++){
@@ -48,7 +48,7 @@ export class PlayerService {
       serializedPrediction += "-"
     }
     serializedPrediction = serializedPrediction.slice(0, -1)
-    let test = this.http.get<String>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
-    return this.http.get<String>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
+    countDices = countDices.slice(0, -1)
+    return this.http.get<string>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
   }
 }
