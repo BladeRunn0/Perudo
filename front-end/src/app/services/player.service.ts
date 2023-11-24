@@ -25,8 +25,8 @@ export class PlayerService {
       return this.http.delete(`${this.playerUrl}/${player.id}`)
   }
 
-  computerPrediction(listOfDiceValues: String): Observable<string[][]> {
-    return this.http.get<string[][]>(`${this.playerUrl}/game/computer-predictions/${listOfDiceValues}`)
+  computerPrediction(listOfDiceValues: String, nb: number): Observable<string[][]> {
+    return this.http.get<string[][]>(`${this.playerUrl}/game/computer-predictions/${listOfDiceValues}/${nb}`)
   }
 
   playerBet(betDice: string[], countDices: string, computerPredictionResult: string[][]):  Observable<string>{
