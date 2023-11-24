@@ -31,12 +31,12 @@ public class Main {
         return countDices;
     }
 
-    private static List<List<String>> computerPrediction(List<Dice> listOfDiceValues){
+    private static List<List<String>> computerPrediction(List<Dice> listOfDiceValues, int nbPlayer){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
 
         List<List<String>> predictions = new ArrayList<>();
 
-        for(int i = 1; i < listOfDiceValues.size(); i++){
+        for(int i = 1; i < nbPlayer; i++){
             List<String> prediction = new ArrayList<>();
 
             //Choose dice's face
@@ -259,7 +259,7 @@ public class Main {
 //            for(int i = 1; i<listPlayer.size(); i++){
 //                predictions.add(computerPrediction(listOfDiceValues, i));
 //            }
-            predictions = computerPrediction(listOfDiceValues);
+            predictions = computerPrediction(listOfDiceValues, nbPlayer);
             System.out.println("Les prédictions de base :\n" + predictions);
 
             // Applying rules on computer predictions

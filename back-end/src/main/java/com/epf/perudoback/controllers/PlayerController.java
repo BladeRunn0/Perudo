@@ -61,7 +61,7 @@ public class PlayerController {
     }
 
     @GetMapping("/game/computer-predictions/{listOfDiceValues}/{nb}")
-    public List<List<String>> computerPredictions(@PathVariable String listOfDiceValues, @PathVariable String nb){
+    public List<List<String>> computerPredictions(@PathVariable String listOfDiceValues, @PathVariable int nb){
         return playerService.computerPrediction(listOfDiceValues, nb);
     }
 
