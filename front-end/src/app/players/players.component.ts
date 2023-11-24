@@ -43,7 +43,7 @@ export class PlayersComponent {
   playerBet(event: any){
     event.stopPropagation();
     this.playerService.playerBet(this.bet, this.listOfDiceValues, this.computerPredictionResult).subscribe(result => {
-      this.result = result;
+      this.result = result[0];
       console.log(this.result)
     })
   }
@@ -57,7 +57,7 @@ export class PlayersComponent {
         })
       })
     }).then(() =>
-      this.playerService.computerPrediction(this.listOfDiceValues.slice(0, -1)).subscribe(result => {
+      this.playerService.computerPrediction(this.listOfDiceValues.slice(0, -1), this.nb).subscribe(result => {
         this.computerPredictionResult = result;
         console.log(this.computerPredictionResult)
     })

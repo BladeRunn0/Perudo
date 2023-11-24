@@ -25,11 +25,11 @@ export class PlayerService {
       return this.http.delete(`${this.playerUrl}/${player.id}`)
   }
 
-  computerPrediction(listOfDiceValues: String, nb: number): Observable<string[][]> {
+  computerPrediction(listOfDiceValues: String, nb: number | undefined): Observable<string[][]> {
     return this.http.get<string[][]>(`${this.playerUrl}/game/computer-predictions/${listOfDiceValues}/${nb}`)
   }
 
-  playerBet(betDice: string[], countDices: string, computerPredictionResult: string[][]):  Observable<string>{
+  playerBet(betDice: string[], countDices: string, computerPredictionResult: string[][]):  Observable<string[]>{
     const betDiceString = betDice.join('&');
     var serializedPrediction: string = "";
     for (var i = 0; i<computerPredictionResult.length; i++){
@@ -49,6 +49,6 @@ export class PlayerService {
     }
     serializedPrediction = serializedPrediction.slice(0, -1)
     countDices = countDices.slice(0, -1)
-    return this.http.get<string>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
+    return this.http.get<string[]>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
   }
 }
