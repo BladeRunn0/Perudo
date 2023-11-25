@@ -107,6 +107,19 @@ public class PlayerService {
         return listOfDiceValues;
     }
 
+    private static List<Integer> getCount(String countDicesStr){
+        String[] countDicesSplit = countDicesStr.split("&");
+        List<Integer> countDices = new ArrayList<>();
+
+        for(int i = 0; i < countDicesSplit.length; i++){
+            countDices.add(Integer.parseInt(countDicesSplit[i]));
+        }
+
+        return countDices;
+
+    }
+
+
     //Creating computers predictions
     public List<List<String>> computerPrediction(String listOfDiceValuesString, int nbPlayers){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
@@ -147,9 +160,19 @@ public class PlayerService {
 
     //Applying game rules to predictions (to be called twice to ensure a good application)
     //Only use the returned string on the second call
-    public String applyRules(List<List<String>> predictions, List<Integer> countDices){
+    public List<String> applyRules(String predictionsJSON, String countDicesStr){
 
-        String doubtResult = null;
+        List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
+        List<List<String>> predictions = new ArrayList<>();
+
+        for (int i = 0; i < predictionsString2.size(); i++){
+            String[] temp = predictionsString2.get(i).split("&");
+            predictions.add(Arrays.asList(temp));
+        }
+
+        List<Integer> countDices = getCount(countDicesStr);
+
+        List<String> doubtResult = new ArrayList<>();
 
         for (int i = 1; i < predictions.size(); i++) {
             String currentFace = predictions.get(i).get(0);
@@ -164,6 +187,7 @@ public class PlayerService {
                     predictions.get(i).set(1, String.valueOf(expectedPacoCount));
                 } else if(currentFace.equals("PACO") && previousFace.equals("PACO")){
                     int updatedCount = Integer.parseInt(previousCount) + 1;
+                    System.out.println(predictions.get(i).get(1).getClass());
                     predictions.get(i).set(1, String.valueOf(updatedCount));
                 }else if (currentFace.equals(previousFace)) {
                     int updatedCount = Integer.parseInt(previousCount) + 1;
@@ -197,7 +221,7 @@ public class PlayerService {
             }
 
             if (currentFace.contains("DOUBT") && !previousFace.contains("DOUBT")){
-                doubtResult = checkDoubt(predictions.get(i-1), countDices);
+                doubtResult.add(checkDoubt(predictions.get(i-1), countDices));
                 break;
             }
         }

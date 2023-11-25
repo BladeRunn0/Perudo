@@ -253,6 +253,7 @@ public class Main {
 
             // Computing frequency of each face of dice
             List<Integer> countDices = diceFrequencies(listOfDiceValues);
+            System.out.println("Compte des faces : "+countDices);
 
             // Making predictions
             List<List<String>> predictions = new ArrayList<>();

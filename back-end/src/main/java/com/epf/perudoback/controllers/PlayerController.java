@@ -66,8 +66,8 @@ public class PlayerController {
         return playerService.computerPrediction(listOfDiceValues, nb);
     }
 
-    @GetMapping("/game/applyRules")
-    public String applyRules(List<List<String>> predictions, List<Integer> countDices){
+    @GetMapping("/game/applyRules/{predictions}/{countDices}")
+    public List<String> applyRules(@PathVariable String predictions, @PathVariable String countDices){
         return playerService.applyRules(predictions, countDices);
     }
 
