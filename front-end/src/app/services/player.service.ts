@@ -31,17 +31,29 @@ export class PlayerService {
 
   playerBet(betDice: string[], countDices: string, computerPredictionResult: string[][]):  Observable<string[]>{
     const betDiceString = betDice.join('&');
+    const __ret = this.serializeComputerPredictionCountDices(computerPredictionResult, countDices);
+    var serializedPrediction = __ret.serializedPrediction;
+    countDices = __ret.countDices;
+    return this.http.get<string[]>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
+  }
+
+  applyRules(countDices: string, computerPredictionResult: string[][]):  Observable<string[]>{
+    const __ret = this.serializeComputerPredictionCountDices(computerPredictionResult, countDices);
+    var serializedPrediction = __ret.serializedPrediction;
+    countDices = __ret.countDices;
+    return this.http.get<string[]>(`${this.playerUrl}/game/applyRules/${serializedPrediction}/${countDices}`)
+  }
+
+  private serializeComputerPredictionCountDices(computerPredictionResult: string[][], countDices: string) {
     var serializedPrediction: string = "";
-    for (var i = 0; i<computerPredictionResult.length; i++){
-      for (let j = 0; j<computerPredictionResult[i].length; j++){
-        if (computerPredictionResult[i][j] == "DOUBT"){
+    for (var i = 0; i < computerPredictionResult.length; i++) {
+      for (let j = 0; j < computerPredictionResult[i].length; j++) {
+        if (computerPredictionResult[i][j] == "DOUBT") {
           serializedPrediction += "DOUBT"
           break;
-        }
-        else if (j == 0){
+        } else if (j == 0) {
           serializedPrediction += computerPredictionResult[i][j] + "&"
-        }
-        else {
+        } else {
           serializedPrediction += computerPredictionResult[i][j]
         }
       }
@@ -49,6 +61,6 @@ export class PlayerService {
     }
     serializedPrediction = serializedPrediction.slice(0, -1)
     countDices = countDices.slice(0, -1)
-    return this.http.get<string[]>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
+    return {serializedPrediction, countDices};
   }
 }

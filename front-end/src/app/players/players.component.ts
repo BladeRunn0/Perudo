@@ -17,6 +17,7 @@ export class PlayersComponent {
   listOfDiceValues = "";
   bet: string[] = ["",""];
   result: string = "";
+  rules: string = "";
 
   constructor(private _route: ActivatedRoute, private playerService: PlayerService, private router: Router) {
     this.players = playerService.findAll()
@@ -48,8 +49,17 @@ export class PlayersComponent {
     })
   }
 
+  applyRules(event: any){
+    event.stopPropagation()
+    this.playerService.applyRules(this.listOfDiceValues, this.computerPredictionResult).subscribe(result => {
+      this.rules = result[0]
+      console.log(result)
+    })
+  }
+
   computerPrediction(event: any) {
     event.stopPropagation();
+    this.listOfDiceValues = "";
     this.players.forEach(element => {
       element.forEach(player => {
         player.dices.forEach(dice => {

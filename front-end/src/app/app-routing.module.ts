@@ -47,6 +47,10 @@ const routes: Routes = [
     },
   },
   {
+    path: 'game_screen/:selectedValue',
+    component: GameScreenComponent,
+  },
+  {
     path: "scores",
     component: ScoresComponent,
     resolve: {
@@ -56,10 +60,6 @@ const routes: Routes = [
   {
     path: "rules",
     component: RulesComponent,
-  },
-  {
-    path: "game_screen",
-    component: GameScreenComponent,
   },
   {
     path: "major-students/:id",
