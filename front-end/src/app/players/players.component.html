@@ -19,16 +19,12 @@
 <label for="betNumber">Enter the number you're betting on:</label>
 <input type="number" id="betNumber" [(ngModel)]="bet[1]" placeholder="e.g., 3">
 
-<button (click)="applyRules($event)">Apply rules</button>
-
-<div *ngIf="rules">
-  <p>Result: {{ rules }}</p>
-</div>
+<p>Rules: {{ rules }}</p>
 
 <button (click)="playerBet($event)">Submit Bet</button>
 
 <div *ngIf="result">
-  <p>Rules: {{ result }}</p>
+  <p>Result: {{ result }}</p>
 </div>
 
 

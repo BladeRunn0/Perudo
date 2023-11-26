@@ -49,14 +49,6 @@ export class PlayersComponent {
     })
   }
 
-  applyRules(event: any){
-    event.stopPropagation()
-    this.playerService.applyRules(this.listOfDiceValues, this.computerPredictionResult).subscribe(result => {
-      this.rules = result[0]
-      console.log(result)
-    })
-  }
-
   computerPrediction(event: any) {
     event.stopPropagation();
     this.listOfDiceValues = "";
@@ -68,7 +60,9 @@ export class PlayersComponent {
       })
     }).then(() =>
       this.playerService.computerPrediction(this.listOfDiceValues.slice(0, -1), this.nb).subscribe(result => {
-        this.computerPredictionResult = result;
+        this.computerPredictionResult = result.slice(0, -1);
+        // @ts-ignore
+        this.rules = result.at(-1)[0];
         console.log(this.computerPredictionResult)
     })
     );
