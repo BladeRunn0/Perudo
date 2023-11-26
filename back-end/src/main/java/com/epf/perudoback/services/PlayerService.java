@@ -121,11 +121,11 @@ public class PlayerService {
 
 
     //Creating computers predictions
-    public List<List<String>> computerPrediction(String listOfDiceValuesString, int nbPlayers, String countDicesStr){
+    public List<List<String>> computerPrediction(String listOfDiceValuesString, int nbPlayers){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
         List<List<String>> predictions = new ArrayList<>();
         List<Dice> listOfDiceValues = getDice(listOfDiceValuesString);
-        List<Integer> countDices = getCount(countDicesStr);
+        List<Integer> countDices = diceFrequencies(listOfDiceValuesString);
 
         for(int i = 1; i < nbPlayers; i++){
             List<String> prediction = new ArrayList<>();
