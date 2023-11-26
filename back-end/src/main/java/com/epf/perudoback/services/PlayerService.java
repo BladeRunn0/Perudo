@@ -160,17 +160,17 @@ public class PlayerService {
 
     //Applying game rules to predictions (to be called twice to ensure a good application)
     //Only use the returned string on the second call
-    public List<String> applyRules(String predictionsJSON, String countDicesStr){
+    public List<String> applyRules(List<List<String>> predictions, List<Integer> countDices){
 
-        List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
-        List<List<String>> predictions = new ArrayList<>();
-
-        for (int i = 0; i < predictionsString2.size(); i++){
-            String[] temp = predictionsString2.get(i).split("&");
-            predictions.add(Arrays.asList(temp));
-        }
-
-        List<Integer> countDices = getCount(countDicesStr);
+//        List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
+//        List<List<String>> predictions = new ArrayList<>();
+//
+//        for (int i = 0; i < predictionsString2.size(); i++){
+//            String[] temp = predictionsString2.get(i).split("&");
+//            predictions.add(Arrays.asList(temp));
+//        }
+//
+//        List<Integer> countDices = getCount(countDicesStr);
 
         List<String> doubtResult = new ArrayList<>();
 
@@ -269,15 +269,13 @@ public class PlayerService {
     }
 
     public List<String> playerBet(String betDiceString, String listOfDiceValues, String predictionsJSON) {
-        List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
-        List<List<String>> predictions = new ArrayList<>();
         List<String> returnString = new ArrayList<>();
 
-        for (int i = 0; i < predictionsString2.size(); i++){
-            predictions.add(Arrays.stream(predictionsString2.get(i).split("&")).toList());
-        }
+        List<List<String>> predictions = getPredictions(predictionsJSON);
 
         String [] betDice = betDiceString.split("&");
+
+
         List<Integer> countDices = diceFrequencies(listOfDiceValues);
 
 
@@ -337,6 +335,21 @@ public class PlayerService {
                 returnString.add("Quitting");
                 return returnString;
         }
+    }
+
+    public List<List<String>> getPredictions(String predictionsJSON) {
+        String[] predictionsString2 = predictionsJSON.split("-");
+        List<List<String>> predictions = new ArrayList<>(); // Initialisation de la liste avec des zéros
+
+
+        for (int i = 0; i < predictionsString2.length; i++){
+            String[] split = predictionsString2[i].split("&");
+            predictions.add(new ArrayList<>());
+            for (int j = 0;j<split.length; j++) {
+                predictions.get(i).add(split[j]);
+            }
+        }
+        return predictions;
     }
 
     private static List<Integer> getDiceValues(List<Dice> countDicesDice) {
