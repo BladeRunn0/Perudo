@@ -11,8 +11,8 @@ import {DiceModel} from "../models/dice.model";
   styleUrls: ['./players.component.scss']
 })
 export class PlayersComponent {
-  players: Observable<Player[]>
-  nb: number | undefined;
+  players: Observable<Player[]> = new Observable<Player[]>()
+  nb: number = 0;
   computerPredictionResult: string[][] = [[""]];
   listOfDiceValues = "";
   bet: string[] = ["",""];
@@ -25,15 +25,18 @@ export class PlayersComponent {
 
   createPlayers(event: any, nb: number | undefined) {
     event.stopPropagation()
+    this.listOfDiceValues = "";
+    this.players = new Observable<Player[]>()
     this.players = this.playerService.createPlayers(nb)
-    /////////////////////// GETTING THE DATA FOR FRONT-END LOGIC
-    let test_players = this.playerService.createPlayers(nb)
-    test_players.forEach(element => {
+    this.players.forEach(element => {
       element.forEach(player => {
-        //console.log(player.dices)
+        player.dices.forEach(dice => {
+          this.listOfDiceValues += dice.diceValue.toString() + "&"
+        })
       })
-    });
-    ////////////////////////////////
+    }).then(() =>
+      console.log(this.listOfDiceValues)
+  );
   }
 
   deletePlayer(event: any, player: Player) {

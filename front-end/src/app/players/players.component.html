@@ -1,6 +1,5 @@
 <div class="d-flex align-items-center">
   <h1>Players</h1>
-  <a mat-raised-button color="primary" routerLink="/player-details/new">New</a>
 </div>
 
 <div>
@@ -36,20 +35,21 @@
     <th scope="col">First Name</th>
     <th scope="col">Last Name</th>
     <th scope="col">Dices Values</th>
-    <th scope="col">Active Dice Number</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">
-    <td>{{ player.lastName }}</td>
-    <li *ngFor="let dice of player.dices">{{ dice.diceValue }}</li>
-    <td>{{ player.activeDiceNumber.valueOf() }}</td>
-    <td>
-      <button mat-icon-button color="warn" (click)="deletePlayer($event, player)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </tr>
+<!--  <tr *ngFor="let player of (players | async)">-->
+<!--    <td>{{ player.lastName }}</td>-->
+<!--    <td>-->
+<!--      <ul>-->
+<!--        <li *ngFor="let dice of (player.dices)">{{ dice.diceValue }}</li>-->
+<!--      </ul>-->
+<!--    </td>-->
+<!--    <td>{{ player.activeDiceNumber.valueOf() }}</td>-->
+<!--  </tr>-->
+
   </tbody>
 </table>
+
+<p>{{listOfDiceValues}}</p>
 
