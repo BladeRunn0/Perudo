@@ -59,6 +59,7 @@ export class PlayersComponent {
 
   computerPrediction(event: any) {
     event.stopPropagation();
+    this.listOfDiceValues = "";
     this.players.forEach(element => {
       element.forEach(player => {
         player.dices.forEach(dice => {

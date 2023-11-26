@@ -72,10 +72,6 @@ public class PlayerController {
         List<List<String>> predictions = playerService.getPredictions(predictionsString);
         return playerService.applyRules(predictions, countDices);
     }
-    @GetMapping("/game/checkDoubt")
-    public String checkDoubt(List<String> prevPlayerPred, List<Integer> countDices){
-        return playerService.checkDoubt(prevPlayerPred, countDices);
-    }
 
     @GetMapping("/game/playerBet/{betDice}/{listOfDiceValues}/{predictions}")
     public List<String> playerBet(@PathVariable String betDice, @PathVariable String listOfDiceValues, @PathVariable String predictions) {
