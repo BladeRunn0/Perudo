@@ -39,8 +39,8 @@
 
 
 <div>
-  <button *ngIf="showActionButtons" (click)="toggleFieldsVisibilityBets()">Parier</button>
-  <button *ngIf="showActionButtons" (click)="playerBet($event)">Dudo</button>
+  <button *ngIf="showActionButtons" (click)="playerBet($event)">Parier</button>
+  <button *ngIf="showActionButtons" (click)="playerBetIfDudo($event)">Dudo</button>
 </div>
 
 
@@ -60,6 +60,7 @@
   <button (click)="playerBet($event)">Valider</button>
 </div>
 
+<p>Rules : {{rules}}</p>
 
 <div *ngIf="result">
   <p>Result: {{ result }}</p>
