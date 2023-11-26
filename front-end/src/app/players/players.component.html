@@ -18,6 +18,15 @@
       {{ prediction[1] }} {{ prediction[0] }}
     </td>
   </tr>
+  <tr *ngIf="showDices">
+    <ng-container *ngIf="(players | async) as playerArray">
+      <ng-container *ngFor="let player of playerArray.slice(0, playerArray.length - 1)">
+        <td routerLink="/player-details/{{player.id}}">
+          <ng-container *ngFor="let dice of player.dices">{{ dice.diceValue }} </ng-container>
+        </td>
+      </ng-container>
+    </ng-container>
+  </tr>
   </tbody>
 </table>
 
@@ -63,23 +72,4 @@
 
 
 
-
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th scope="col">Last Name</th>
-    <th scope="col">Dices Values</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">
-    <td>{{ player.lastName }}</td>
-    <td>
-      <ng-container *ngFor="let dice of player.dices">{{ dice.diceValue }} </ng-container>
-    </td>
-  </tr>
-  </tbody>
-</table>
-
-<p>{{listOfDiceValues}}</p>
 

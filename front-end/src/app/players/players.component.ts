@@ -22,7 +22,7 @@ export class PlayersComponent {
   rules: string = "";
   playerDices: number[] = [];
   showFields: boolean = false;
-
+  showDices: boolean = false;
 
 
   constructor(
@@ -50,6 +50,10 @@ export class PlayersComponent {
 
   toggleFieldsVisibility(): void {
     this.showFields = !this.showFields;
+  }
+
+  toggleFieldsVisibilityDices(): void {
+    this.showDices = !this.showDices;
   }
 
   computersHeaders(count: number | undefined): string[] {
@@ -91,13 +95,16 @@ export class PlayersComponent {
     this.playerService.deletePlayers(player).subscribe(() => this.router.navigate(["players"], {skipLocationChange: true}));
   }
 
+
+
   playerBet(event: any){
     event.stopPropagation();
     console.log("pari : ", this.bet);
     this.playerService.playerBet(this.bet, this.listOfDiceValues, this.computerPredictionResult).subscribe(result => {
       this.result = result[0];
       console.log(this.result)
-    })
+    });
+    this.toggleFieldsVisibilityDices();
   }
 
   computerPrediction(event: any) {

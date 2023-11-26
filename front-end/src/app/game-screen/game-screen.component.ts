@@ -12,7 +12,7 @@ export class GameScreenComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private sharedService: SharedService
-  ) {  }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
