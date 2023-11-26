@@ -1,13 +1,31 @@
-<div class="d-flex align-items-center">
-  <h1>Players</h1>
-  <a mat-raised-button color="primary" routerLink="/player-details/new">New</a>
-</div>
+<!--<div class="d-flex align-items-center">-->
+<!--  <h1>Players</h1>-->
+<!--  <a mat-raised-button color="primary" routerLink="/player-details/new">New</a>-->
+<!--</div>-->
 
-<div>
-  <label for="playerNumber">Enter Player Number:</label>
-  <input type="number" id="playerNumber" [(ngModel)]="nb" />
-  <button mat-raised-button color="primary" (click)="createPlayers($event, nb)">Test create players</button>
-</div>
+<!--<div>-->
+<!--  <label for="playerNumber">Enter Player Number:</label>-->
+<!--  <input type="number" id="playerNumber" [(ngModel)]="nbComputers" />-->
+<!--  <button mat-raised-button color="primary" (click)="createPlayers($event, nbComputers)">Test create players</button>-->
+<!--</div>-->
+
+<table>
+  <thead>
+  <tr>
+    <th *ngFor="let computer of computersHeaders(nbComputers)">
+      {{ computer }}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td *ngFor="let prediction of computerPredictionResult">
+      {{ prediction[1] }} {{ prediction[0] }}
+    </td>
+  </tr>
+  </tbody>
+</table>
+
 
 <button (click)="computerPrediction($event)">Compute Prediction</button>
 
@@ -28,8 +46,6 @@
 </div>
 
 
-
-
 <table class="table table-hover">
   <thead>
   <tr>
@@ -37,13 +53,19 @@
     <th scope="col">Last Name</th>
     <th scope="col">Dices Values</th>
     <th scope="col">Active Dice Number</th>
+    <th scope="col">Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">
     <td>{{ player.lastName }}</td>
-    <li *ngFor="let dice of player.dices">{{ dice.diceValue }}</li>
-    <td>{{ player.activeDiceNumber.valueOf() }}</td>
+    <td>{{ player.firstName }}</td>
+    <td>
+      <ng-container *ngFor="let dice of player.dices">
+        {{ dice.diceValue }}
+      </ng-container>
+    </td>
+    <td>{{ player.activeDiceNumber }}</td>
     <td>
       <button mat-icon-button color="warn" (click)="deletePlayer($event, player)">
         <mat-icon>delete</mat-icon>
@@ -52,4 +74,29 @@
   </tr>
   </tbody>
 </table>
+
+
+
+<!--<table class="table table-hover">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th scope="col">First Name</th>-->
+<!--    <th scope="col">Last Name</th>-->
+<!--    <th scope="col">Dices Values</th>-->
+<!--    <th scope="col">Active Dice Number</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">-->
+<!--    <td>{{ player.lastName }}</td>-->
+<!--    <li *ngFor="let dice of player.dices">{{ dice.diceValue }}</li>-->
+<!--    <td>{{ player.activeDiceNumber.valueOf() }}</td>-->
+<!--    <td>-->
+<!--      <button mat-icon-button color="warn" (click)="deletePlayer($event, player)">-->
+<!--        <mat-icon>delete</mat-icon>-->
+<!--      </button>-->
+<!--    </td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
 
