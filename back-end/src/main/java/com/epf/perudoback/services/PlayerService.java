@@ -121,10 +121,11 @@ public class PlayerService {
 
 
     //Creating computers predictions
-    public List<List<String>> computerPrediction(String listOfDiceValuesString, int nbPlayers){
+    public List<List<String>> computerPrediction(String listOfDiceValuesString, int nbPlayers, String countDicesStr){
         enum predict{PACO, DEUX, TROIS, QUATRE, CINQ, SIX, DOUBT} // Without DOUBT
         List<List<String>> predictions = new ArrayList<>();
         List<Dice> listOfDiceValues = getDice(listOfDiceValuesString);
+        List<Integer> countDices = getCount(countDicesStr);
 
         for(int i = 1; i < nbPlayers; i++){
             List<String> prediction = new ArrayList<>();
@@ -155,22 +156,28 @@ public class PlayerService {
             }
             predictions.add(prediction);
         }
+
+        applyRules(predictions, countDices);
+        List<String> doubtResult = applyRules(predictions, countDices);
+        predictions.add(doubtResult);
+
+
         return predictions;
     }
 
     //Applying game rules to predictions (to be called twice to ensure a good application)
     //Only use the returned string on the second call
-    public List<String> applyRules(String predictionsJSON, String countDicesStr){
+    public List<String> applyRules(List<List<String>> predictions, List<Integer> countDices){
 
-        List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
-        List<List<String>> predictions = new ArrayList<>();
-
-        for (int i = 0; i < predictionsString2.size(); i++){
-            String[] temp = predictionsString2.get(i).split("&");
-            predictions.add(Arrays.asList(temp));
-        }
-
-        List<Integer> countDices = getCount(countDicesStr);
+//        List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
+//        List<List<String>> predictions = new ArrayList<>();
+//
+//        for (int i = 0; i < predictionsString2.size(); i++){
+//            String[] temp = predictionsString2.get(i).split("&");
+//            predictions.add(Arrays.asList(temp));
+//        }
+//
+//        List<Integer> countDices = getCount(countDicesStr);
 
         List<String> doubtResult = new ArrayList<>();
 
