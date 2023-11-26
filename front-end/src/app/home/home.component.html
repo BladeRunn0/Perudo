@@ -11,7 +11,7 @@
       Consulter les règles
     </button>
 
-    <form #playForm="ngForm" (ngSubmit)="onSubmit()">
+    <form #playForm="ngForm" (ngSubmit)="onSubmit(numberOfComputers.value)">
       <p>
         Pour jouer, entrez un nom :
         <input #playerName="ngModel" type="text" id="playerName" name="playerName" [(ngModel)]="playerNameValue" required>

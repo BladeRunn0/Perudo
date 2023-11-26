@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'epf-game-screen',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameScreenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      const selectedValue = +params['selectedValue']; // Récupération de la valeur sélectionnée depuis les paramètres de la route
+      console.log('nb ordis sélectionnés et importés : ', selectedValue);
+      // Utilisez la valeur sélectionnée comme nécessaire dans votre composant GameScreen
+    });
+  }
 
   ngOnInit(): void {
   }
