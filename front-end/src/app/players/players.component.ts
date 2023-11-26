@@ -23,7 +23,8 @@ export class PlayersComponent {
   playerDices: number[] = [];
   showFields: boolean = false;
   showDices: boolean = false;
-
+  showDudo: boolean = false;
+  showActionButtons: boolean = true;
 
   constructor(
     private _route: ActivatedRoute,
@@ -48,12 +49,20 @@ export class PlayersComponent {
     });
   }
 
-  toggleFieldsVisibility(): void {
+  toggleFieldsVisibilityBets(): void {
     this.showFields = !this.showFields;
   }
 
   toggleFieldsVisibilityDices(): void {
     this.showDices = !this.showDices;
+  }
+
+  toggleFieldsVisibilityDudo(): void {
+    this.showDudo = !this.showDudo;
+  }
+
+  toggleFieldsVisibilityActionButtons(): void {
+    this.showActionButtons = !this.showActionButtons;
   }
 
   computersHeaders(count: number | undefined): string[] {
@@ -77,6 +86,7 @@ export class PlayersComponent {
   createPlayers(nb: number | undefined) {
     this.loadPlayers();
     this.listOfDiceValues = "";
+    this.computerPredictionResult = [[""]];
     this.players = new Observable<Player[]>()
     this.players = this.playerService.createPlayers(nb);
     this.players.forEach(element => {
@@ -122,7 +132,17 @@ export class PlayersComponent {
       })
     }).then(() =>
       this.playerService.computerPrediction(this.listOfDiceValues.slice(0, -1), nbComputers).subscribe(result => {
-        this.computerPredictionResult = result.slice(0, -1);
+
+        for (let i = 0; i < result.length; i++){
+          this.computerPredictionResult[i] = result[i]
+          if (result[i][0] == "DOUBT"){
+            this.toggleFieldsVisibilityDudo();
+            this.toggleFieldsVisibilityActionButtons();
+            break
+          }
+        }
+
+        // this.computerPredictionResult = result.slice(0, -1);
         // @ts-ignore
         this.rules = result.at(-1)[0];
         console.log(this.computerPredictionResult)
