@@ -126,6 +126,7 @@ public class PlayerService {
         List<List<String>> predictions = new ArrayList<>();
         List<Dice> listOfDiceValues = getDice(listOfDiceValuesString);
         List<Integer> countDices = diceFrequencies(listOfDiceValuesString);
+        System.out.println(countDices);
 
         for(int i = 1; i < nbPlayers; i++){
             List<String> prediction = new ArrayList<>();
