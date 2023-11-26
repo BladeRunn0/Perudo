@@ -30,21 +30,17 @@
   </tbody>
 </table>
 
+<p *ngIf="showDudo">Quelqu'un a annoncé Dudo ! La manche est finie, veuillez recharger la page.</p>
+
 <p>Vos dés : </p>
 <div *ngIf="playerDices.length > 0">
   <p>{{ playerDices.join(', ') }}</p>
 </div>
 
-<!--<p>Vos dés : </p>-->
-<!--<div *ngIf="playerDices.length > 0">-->
-<!--  <ng-container *ngFor="let dice of playerDices">-->
-<!--    <img *ngIf="diceImages[dice]" [src]="diceImages[dice]" [alt]="dice" width="50" height="50">-->
-<!--  </ng-container>-->
-<!--</div>-->
 
 <div>
-  <button (click)="toggleFieldsVisibility()">Parier</button>
-  <button (click)="playerBet($event)">Dudo</button>
+  <button *ngIf="showActionButtons" (click)="toggleFieldsVisibilityBets()">Parier</button>
+  <button *ngIf="showActionButtons" (click)="playerBetIfDudo($event)">Dudo</button>
 </div>
 
 
