@@ -21,8 +21,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(selectedValue: string) {
-    this.router.navigate(['/game_screen', selectedValue ]);
+  onSubmit(nbComputers: string) {
+    this.router.navigate(['/game_screen', nbComputers ]);
   }
 
   validatePlayerName() {

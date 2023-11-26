@@ -6,3 +6,6 @@ export interface DiceModel {
 enum DiceValues {
   PACO, DEUX, TROIS, QUATRE, CINQ, SIX
 }
+
+
+

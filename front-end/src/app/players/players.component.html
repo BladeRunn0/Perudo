@@ -1,26 +1,60 @@
-<div class="d-flex align-items-center">
-  <h1>Players</h1>
+
+<div class="centre">
+  <button class="start-game-button" (click)="computerPrediction($event)">Commencer le jeu</button>
 </div>
+
+
+<table>
+  <thead>
+  <tr>
+    <th *ngFor="let computer of computersHeaders(nbComputers)">
+      {{ computer }}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td *ngFor="let prediction of computerPredictionResult">
+      {{ prediction[1] }} {{ prediction[0] }}
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<p>Vos dés : </p>
+<div *ngIf="playerDices.length > 0">
+  <p>{{ playerDices.join(', ') }}</p>
+</div>
+
+<!--<p>Vos dés : </p>-->
+<!--<div *ngIf="playerDices.length > 0">-->
+<!--  <ng-container *ngFor="let dice of playerDices">-->
+<!--    <img *ngIf="diceImages[dice]" [src]="diceImages[dice]" [alt]="dice" width="50" height="50">-->
+<!--  </ng-container>-->
+<!--</div>-->
 
 <div>
-  <label for="playerNumber">Enter Player Number:</label>
-  <input type="number" id="playerNumber" [(ngModel)]="nb" />
-  <button mat-raised-button color="primary" (click)="createPlayers($event, nb)">Test create players</button>
+  <button (click)="toggleFieldsVisibility()">Parier</button>
+  <button (click)="playerBet($event)">Dudo</button>
 </div>
 
-<button (click)="computerPrediction($event)">Compute Prediction</button>
 
-<p>Test prediction API: {{ computerPredictionResult | json }}</p>
+<div *ngIf="showFields">
+  <label for="betNumber">Entrez un nombre de dés : </label>
+  <input type="number" id="betNumber" [(ngModel)]="bet[1]" placeholder="exemple : 3">
+  <br/><br/>
+  <label for="diceValue">Sélectionnez une valeur de dé : </label>
+  <select id="diceValue" name="diceValue" [(ngModel)]="bet[0]">
+    <option value="PACO">PACO</option>
+    <option value="DEUX">DEUX</option>
+    <option value="TROIS">TROIS</option>
+    <option value="QUATRE">QUATRE</option>
+    <option value="CINQ">CINQ</option>
+    <option value="SIX">SIX</option>
+  </select>
+  <button (click)="playerBet($event)">Valider</button>
+</div>
 
-<label for="diceValue">Enter the value of the dice:</label>
-<input type="text" id="diceValue" [(ngModel)]="bet[0]" placeholder="e.g., CINQ">
-
-<label for="betNumber">Enter the number you're betting on:</label>
-<input type="number" id="betNumber" [(ngModel)]="bet[1]" placeholder="e.g., 3">
-
-<p>Rules: {{ rules }}</p>
-
-<button (click)="playerBet($event)">Submit Bet</button>
 
 <div *ngIf="result">
   <p>Result: {{ result }}</p>
@@ -29,25 +63,21 @@
 
 
 
+
 <table class="table table-hover">
   <thead>
   <tr>
-    <th scope="col">First Name</th>
     <th scope="col">Last Name</th>
     <th scope="col">Dices Values</th>
   </tr>
   </thead>
   <tbody>
-<!--  <tr *ngFor="let player of (players | async)">-->
-<!--    <td>{{ player.lastName }}</td>-->
-<!--    <td>-->
-<!--      <ul>-->
-<!--        <li *ngFor="let dice of (player.dices)">{{ dice.diceValue }}</li>-->
-<!--      </ul>-->
-<!--    </td>-->
-<!--    <td>{{ player.activeDiceNumber.valueOf() }}</td>-->
-<!--  </tr>-->
-
+  <tr *ngFor="let player of (players | async)" routerLink="/player-details/{{player.id}}">
+    <td>{{ player.lastName }}</td>
+    <td>
+      <ng-container *ngFor="let dice of player.dices">{{ dice.diceValue }} </ng-container>
+    </td>
+  </tr>
   </tbody>
 </table>
 
