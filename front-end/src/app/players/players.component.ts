@@ -120,12 +120,14 @@ export class PlayersComponent {
   playerBetIfDudo(event: any){
     event.stopPropagation();
     console.log("pari : ", this.bet);
-    this.playerService.playerBet(this.bet, this.listOfDiceValues, this.computerPredictionResult).subscribe(result => {
-      this.result = result[0];
-      console.log(this.result)
-    });
+    this.applyRules()
+    // this.playerService.playerBet(this.bet, this.listOfDiceValues, this.computerPredictionResult).subscribe(result => {
+    //   this.result = result[0];
+    //   console.log(this.result)
+    // });
     this.toggleFieldsVisibilityDudo();
     this.toggleFieldsVisibilityActionButtons();
+    this.toggleFieldsVisibilityDices();
   }
 
   computerPrediction(event: any) {
@@ -160,4 +162,14 @@ export class PlayersComponent {
     })
     );
   }
+
+  applyRules(){
+    // this.computerPredictionResult.pop()
+    this.computerPredictionResult[this.computerPredictionResult.length - 1][0] = "DOUBT"
+    this.playerService.applyRules(this.listOfDiceValues, this.computerPredictionResult).subscribe(result => {
+      this.rules = result[0]
+      console.log(result)
+    })
+  }
+
 }

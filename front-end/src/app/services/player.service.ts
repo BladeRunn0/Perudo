@@ -37,6 +37,13 @@ export class PlayerService {
     return this.http.get<string[]>(`${this.playerUrl}/game/playerBet/${betDiceString}/${countDices}/${serializedPrediction}`)
   }
 
+  applyRules(countDices: string, computerPredictionResult: string[][]):  Observable<string[]>{
+    const __ret = this.serializeComputerPredictionCountDices(computerPredictionResult, countDices);
+    var serializedPrediction = __ret.serializedPrediction;
+    countDices = __ret.countDices;
+    return this.http.get<string[]>(`${this.playerUrl}/game/applyRules/${serializedPrediction}/${countDices}`)
+  }
+
   private serializeComputerPredictionCountDices(computerPredictionResult: string[][], countDices: string) {
     var serializedPrediction: string = "";
     for (var i = 0; i < computerPredictionResult.length; i++) {

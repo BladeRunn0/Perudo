@@ -61,6 +61,13 @@ public class PlayerController {
         return playerService.diceFrequencies(listOfDiceValues);
     }
 
+    @GetMapping("/game/applyRules/{predictionsJSON}/{listOfDiceValues}")
+    public List<String> applyRules(@PathVariable String predictionsJSON, @PathVariable String listOfDiceValues){
+        List<List<String>> predictions = playerService.getPredictions(predictionsJSON);
+        List<Integer> countDices = playerService.diceFrequencies(listOfDiceValues);
+        return playerService.applyRules(predictions, countDices);
+    }
+
     @GetMapping("/game/computer-predictions/{listOfDiceValues}/{nb}")
     public List<List<String>> computerPredictions(@PathVariable String listOfDiceValues, @PathVariable int nb){
         return playerService.computerPrediction(listOfDiceValues, nb);

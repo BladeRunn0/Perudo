@@ -169,6 +169,7 @@ public class PlayerService {
     //Only use the returned string on the second call
     public List<String> applyRules(List<List<String>> predictions, List<Integer> countDices){
 
+
 //        List<String> predictionsString2 = List.of(predictionsJSON.split("-"));
 //        List<List<String>> predictions = new ArrayList<>();
 //
